@@ -1,0 +1,80 @@
+<!doctype html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <title>coast</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <link rel="shortcut icon" href="/favicon.ico">
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <!-- build:css styles/vendor.css -->
+        <!-- bower:css -->
+
+        <!-- endbower -->
+        <!-- endbuild -->
+        <!-- build:css(.tmp) styles/main.css -->
+        <link rel="stylesheet" href="styles/main.css">
+        <!-- endbuild -->
+        <!-- build:js scripts/vendor/modernizr.js -->
+        <script src="../bower_components/modernizr/modernizr.js"></script>
+        <!-- endbuild -->
+
+        <link href='http://fonts.googleapis.com/css?family=Karla:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+
+    </head>
+    <body>
+        <!--[if lt IE 10]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <div class="container">
+            
+            <header>
+                <div class="logo"></div>
+                <button class="sign-up-button">Sign Up</button>
+                <button class="login-button">Login</button>
+
+                <h1>A really great headline will eventually go right here.</h1>
+                <div class="down-pointer"></div>
+            </header>
+
+            <div class="search">
+                <input class="search-forecasts" type="text" placeholder="Sarasota, FL">
+                <img class="compass-icon" src="images/compass.svg">
+                
+            </div>
+
+            <input type="text" placeholder="Username" class="sign-up-username">
+            <input type="password" placeholder="Password" class="sign-up-password">
+            <input type="email" placeholder="Email" class="sign-up-email">
+            <button class="submit-sign-up-button">Submit</button>
+            <input type="text" placeholder="Username" class="login-username">
+            <input type="password" placeholder="Password" class="login-password">
+            <button class="login-button">Login</button>
+
+            <button class="logout-button">Logout</button>
+
+        </div>
+
+        <!-- build:js scripts/vendor.js -->
+        <!-- bower:js -->
+        <script src="../bower_components/jquery/dist/jquery.js"></script>
+        <!-- endbower -->
+        <!-- endbuild -->
+
+        <script src="//www.parsecdn.com/js/parse-1.2.18.min.js"></script>
+
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <script>
+            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            e.src='//www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+            ga('create','UA-XXXXX-X');ga('send','pageview');
+        </script>
+
+        <!-- build:js({app,.tmp}) scripts/main.js -->
+        <script src="scripts/main.js"></script>
+        <!-- endbuild -->
+</body>
+</html>

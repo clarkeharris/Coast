@@ -1,0 +1,116 @@
+// bower:scss
+// endbower
+
+body {
+    background: #dfdfd5;
+    font-family: 'Karla', Helvetica, Arial, sans-serif;
+    font-size: 62.5%;
+    color: #073c60;
+}
+
+img {
+    max-width:100;
+}
+
+h1 {
+ font-size: 2.4em;
+ font-weight: 400;
+}
+
+button {
+    padding: 5px 10px;
+    font-family: 'Karla', Helvetica, Arial, sans-serif;
+    font-size: 1.2em;
+    text-transform: uppercase;
+    border: none;
+}
+
+input {
+    font-family: 'Karla', Helvetica, Arial, sans-serif;
+    font-size: 1.6em;
+    }
+
+.container {
+    width: 90%;
+    margin: 0 auto;
+}
+
+header {
+    width: 100%;
+    padding-top: 1em;
+
+     .logo {
+        padding: 40px;
+        width: 30px;
+        height: 30px;
+        display: inline-block;
+        background: url('../images/coast-logo.svg') no-repeat;
+    }
+
+    .login-button {
+        float: right;
+        margin-top: 1.2em;
+        border: solid 2px #073c60;
+        border-radius: 2px;
+        background: none;
+        color: #073c60;
+        margin-right: 10px;
+    }
+
+    .sign-up-button {
+        float: right;
+        margin-top: 1.2em;
+        padding: 7px 12px;
+        border: none;
+        background: #073c60;
+        border-radius: 2px;
+        color: #dfdfd5;
+    }
+    
+    h1 {
+        padding-top: 2.5em;
+        text-align: center;
+    }
+
+    .down-pointer {
+        width: 0;
+        height: 0;
+        margin: 10em auto;
+        border-style: solid;
+        border-width: 20px 20px 0 20px;
+        border-color: #fb4349 transparent transparent transparent;
+    }
+}
+
+.search {
+    position: relative;
+    padding: 0;
+    margin: 0;
+
+    .search-forecasts {
+        width: 20em;
+        height: 2.5em;
+        padding: 0 .5em;
+        margin: 0 auto;
+        border: 1px solid #afafac;
+        border-radius: 2px;
+        font-size: 1.6em;
+        display: block;
+            
+
+    }
+
+    .compass-icon {
+        position: absolute;
+        bottom: 10px;
+        width: 20px;
+        height: 20px; 
+    }
+
+
+
+
+
+
+
+}
