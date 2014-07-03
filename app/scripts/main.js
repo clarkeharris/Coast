@@ -2,42 +2,26 @@ Parse.initialize("BA1C8ZngmJPQ6vOTvtCCJq9SEWEBBAR5vPoNuxtE", "tAX4S5an89EtItKoTz
 
 // User Sign Up
 
-$('.submit-sign-up-button').click(function() {
+// $('.submit-sign-up-button').click(function() {
 
-	var user = new Parse.User();
-	user.set("username", $('.sign-up-username').val() );
-	user.set("password", $('.sign-up-password').val() );
-	user.set("email", 	 $('.sign-up-email').val() );
+// 	var user = new Parse.User();
+// 	user.set("username", $('.sign-up-username').val() );
+// 	user.set("password", $('.sign-up-password').val() );
+// 	user.set("email", 	 $('.sign-up-email').val() );
 	 
 
-	user.signUp(null, {
-	  success: function(user) {
-	  	console.log('Succesfully created a new user!')
-	  },
-	  error: function(user, error) {
-	  	console.log('No user was created')
-	    alert("Error: " + error.code + " " + error.message);
-	  }
-	});
+// 	user.signUp(null, {
+// 	  success: function(user) {
+// 	  	console.log('Succesfully created a new user!')
+// 	  },
+// 	  error: function(user, error) {
+// 	  	console.log('No user was created')
+// 	    alert("Error: " + error.code + " " + error.message);
+// 	  }
+// 	});
 
-});
+// });
 
-// User Login
-
-$('.login-button').click(function() {
-
-	Parse.User.logIn($('.login-username').val(), $('.login-password').val(), {
-	  success: function(user) {
-	    console.log('Succesfully logged in!')
-	    $(".login-username").val('');
-	    $(".login-password").val('');
-	  },
-	  error: function(user, error) {
-	    console.log('Login failed')
-	  }
-	});
-
-});
 
 // User Logout 
 $('.logout-button').click(function() {
@@ -47,3 +31,9 @@ $('.logout-button').click(function() {
 	var currentUser = Parse.User.current();
 
 });
+
+// // If User is not logged in
+
+// redirectLogOut: function() { 
+// if(!currentUser) router.navigate('sign-up', {trigger: true});
+// }

@@ -26,38 +26,72 @@
         <!--[if lt IE 10]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-        <div class="container">
-            
-            <header>
-                <div class="logo"></div>
-                <button class="sign-up-button">Sign Up</button>
-                <button class="login-button">Login</button>
+        <div class="container"></div>
 
-                <h1>A really great headline will eventually go right here.</h1>
-                <div class="down-pointer"></div>
-            </header>
-
-            <div class="search">
+           <!--  <div class="search">
                 <input class="search-forecasts" type="text" placeholder="Sarasota, FL">
                 <img class="compass-icon" src="images/compass.svg">
-                
+
             </div>
 
             <input type="text" placeholder="Username" class="sign-up-username">
             <input type="password" placeholder="Password" class="sign-up-password">
             <input type="email" placeholder="Email" class="sign-up-email">
             <button class="submit-sign-up-button">Submit</button>
-            <input type="text" placeholder="Username" class="login-username">
-            <input type="password" placeholder="Password" class="login-password">
-            <button class="login-button">Login</button>
 
-            <button class="logout-button">Logout</button>
+
+            <button class="logout-button">Logout</button> -->
 
         </div>
+        
+        <!-- Homepage View -->
+        <script type="text/template" class="home-view-template">
+            <div class="header">
+
+            <div class="logo"></div>
+            <button class="login-button">Login</button>
+            <button class="sign-up-button">Sign Up</button>
+            
+
+            <h1>A really great headline will eventually go right here.</h1>
+            <div class="down-pointer"></div>
+            
+            
+        </script>
+        
+        <!-- Login View -->
+        <script type="text/template" class="login-view-template">
+            <div class="login-sign-up-container">
+                <a class="logo" href="#"></a>
+                <input type="text" placeholder="Username" class="login-username">
+                <input type="password" placeholder="Password" class="login-password">
+                <button class="login-button">Login</button>
+                <a href="#">Forgot your password?</a>
+            </div>
+        </script>
+
+        <!--Sign Up View -->
+
+          <script type="text/template" class="sign-up-view-template">
+            <div class="login-sign-up-container">
+                <a class="logo" href="#"></a>
+                <p>Username</p>
+                <input type="text" placeholder="johndoe" class="sign-up-username">
+                <p>Create a Password</p>
+                <input type="password" placeholder="Password" class="sign-up-password">
+                <p>Your Email Address</p>
+                <input type="email" placeholder="you@example.com" class="sign-up-email">
+                <button class="submit-sign-up-button">Sign Up</button>
+                <a href="#/login">Already have an account?</a>
+            </div>
+        </script>
+
 
         <!-- build:js scripts/vendor.js -->
         <!-- bower:js -->
         <script src="../bower_components/jquery/dist/jquery.js"></script>
+        <script src="../bower_components/underscore/underscore.js"></script>
+        <script src="../bower_components/backbone/backbone.js"></script>
         <!-- endbower -->
         <!-- endbuild -->
 
@@ -75,6 +109,10 @@
 
         <!-- build:js({app,.tmp}) scripts/main.js -->
         <script src="scripts/main.js"></script>
+        <script src="scripts/models.js"></script>
+        <script src="scripts/views.js"></script>
+        <script src="scripts/collections.js"></script>
+        <script src="scripts/router.js"></script>
         <!-- endbuild -->
 </body>
 </html>

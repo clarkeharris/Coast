@@ -17,6 +17,15 @@ h1 {
  font-weight: 400;
 }
 
+h2 {
+    font-size: 2.2em;
+    font-weight: 400;
+}
+
+p {
+    font-size: 1.2em;
+}
+
 button {
     padding: 5px 10px;
     font-family: 'Karla', Helvetica, Arial, sans-serif;
@@ -27,44 +36,152 @@ button {
 
 input {
     font-family: 'Karla', Helvetica, Arial, sans-serif;
-    font-size: 1.6em;
+    font-size: 1.4em;
+    border: none;
+    padding-left: 0.5em;
     }
+
+.logo {
+    width: 50px;
+    height: 50px;
+    background: url('../images/coast-logo.svg') no-repeat;
+}
 
 .container {
     width: 90%;
     margin: 0 auto;
 }
 
-header {
+.login-sign-up-container {
+    width: 300px;
+    margin: 0 auto;
+    margin-top: 5em;
+
+    .logo {
+        margin: 0 auto;
+        margin-bottom: 25px;
+        float: none;
+    }
+
+    .login-username {
+        display: block;
+        margin: 0 auto;
+        margin-top: 0.25em;
+        width: 290px;
+        height: 40px;
+        border-radius: 2px;
+    }
+
+    .login-password {
+        display: block;
+        margin: 0 auto;
+        margin-top: 0.25em;
+        width: 290px;
+        height: 40px;
+        border-radius: 2px;
+
+    }
+
+     .login-button {
+        display: block;
+        margin: 0 auto;
+        margin-top: 1em;
+        width: 296px;
+        height: 40px;
+        background: #073c60;
+        border-radius: 2px;
+        color: #fff;
+        cursor: pointer;
+        text-align: center;
+    }
+
+    .sign-up-username {
+        display: block;
+        margin: 0 auto;
+        margin-top: 0.25em;
+        width: 290px;
+        height: 40px;
+        border-radius: 2px;
+    }
+    
+    .sign-up-password{
+        display: block;
+        margin: 0 auto;
+        margin-top: 0.25em;
+        width: 290px;
+        height: 40px;
+        border-radius: 2px;
+    }
+    
+    .sign-up-email {
+        display: block;
+        margin: 0 auto;
+        margin-top: 0.25em;
+        width: 290px;
+        height: 40px;
+        border-radius: 2px;
+    }
+    
+    .submit-sign-up-button {
+        display: block;
+        margin: 0 auto;
+        margin-top: 1em;
+        width: 296px;
+        height: 40px;
+        background: #073c60;
+        border-radius: 2px;
+        color: #fff;
+        cursor: pointer;
+        text-align: center;
+    }
+
+    h2 {
+        margin: 0 0;
+    }
+
+    p {
+        margin: 0 0;
+        padding-top: 1.5em;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    a {
+        margin-top: 1em;
+        display: block;
+        color: #073c60;
+        text-decoration: none; 
+        font-size: 1.2em;
+}
+
+}
+
+.header {
     width: 100%;
     padding-top: 1em;
 
-     .logo {
-        padding: 40px;
-        width: 30px;
-        height: 30px;
-        display: inline-block;
-        background: url('../images/coast-logo.svg') no-repeat;
+    .logo {
+        float: left;
     }
 
     .login-button {
         float: right;
-        margin-top: 1.2em;
         border: solid 2px #073c60;
         border-radius: 2px;
         background: none;
         color: #073c60;
-        margin-right: 10px;
+        cursor: pointer;
     }
 
     .sign-up-button {
         float: right;
-        margin-top: 1.2em;
+        margin-right: 10px;
         padding: 7px 12px;
         border: none;
         background: #073c60;
         border-radius: 2px;
         color: #dfdfd5;
+        cursor: pointer;
     }
     
     h1 {
@@ -106,11 +223,4 @@ header {
         width: 20px;
         height: 20px; 
     }
-
-
-
-
-
-
-
 }
