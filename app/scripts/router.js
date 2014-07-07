@@ -6,7 +6,7 @@ var AppRouter = Backbone.Router.extend({
 		""      		      : 	"homePage",
 		"login"      		  : 	"loginPage",
 		"sign-up"      		  : 	"signUpPage",
-		"dashboard/:userId" 	  : 	"dashboardPage",
+		"dashboard" 	  	  : 	"dashboardPage",
 		"post" 				  : 	"post",
 		"profile/:username"   : 	"userProfile"
 	},
@@ -34,12 +34,12 @@ var AppRouter = Backbone.Router.extend({
 		new SignUpView();
 	},
 
-	dashboardPage: function(userId) {
+	dashboardPage: function() {
+		console.log()
 		$('.container').html('')
-		new DashboardView({model: window.currentUser});
+		new DashboardView({model: Parse.User.current()});
 		// console.log(Parse.Current.user)
 		
-		console.log(userId)
 	}
 
 

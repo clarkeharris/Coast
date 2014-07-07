@@ -67,11 +67,8 @@ var LoginView = Parse.View.extend ({
 		    $(".login-username").val('');
 		    $(".login-password").val('');
 
-		    window.currentUser = user;
-		    console.log(currentUser)
-				console.log('#/dashboard/' + currentUser.id)
-		    router.navigate('#/dashboard/' + currentUser.id)
-		    // var user = Parse.Current.user();
+		    router.navigate('#/dashboard')
+		    
 		    
 		  },
 		  error: function(user, error) {
@@ -131,7 +128,8 @@ var DashboardView = Parse.View.extend({
 	template: _.template($('.dashboard-view-template').text()),
 
 	events: {
-			"click .upload-button": "uploadPhoto"
+			"click .upload-button": "uploadPhoto",
+			"click .logout-button": "logOut"
 	},
 
 	initialize: function() {
@@ -142,6 +140,16 @@ var DashboardView = Parse.View.extend({
 	render: function(){
 	    this.$el.html(this.template())
 	    return this;
+	},
+
+	logOut: function() {
+
+	Parse.User.logOut();
+	console.log('Logged out Succesfully!')
+	var currentUser = Parse.User.current();
+
+	router.navigate('#/login')
+
 	},
 
 	uploadPhoto: function() {
@@ -157,7 +165,6 @@ var DashboardView = Parse.View.extend({
 
 		var uploadPromise = parseFile.save()
 
-
 		uploadPromise.then(function() {
 		console.log("Maybe Succesful")
 		}, function(error) {
@@ -167,7 +174,7 @@ var DashboardView = Parse.View.extend({
 		uploadPromise.done(function(){
 
 		var uploadPhoto = new Parse.Object("UploadPhoto");
-		uploadPhoto.set("user", window.currentUser.attributes.username );
+		uploadPhoto.set("user", Parse.User.current().attributes.username);
 		uploadPhoto.set("photo", parseFile.url() );
 		uploadPhoto.set("caption", $('.caption').val() );
 		uploadPhoto.set("photoRef", parseFile);

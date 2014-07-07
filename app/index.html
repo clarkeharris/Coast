@@ -111,11 +111,41 @@
         </script>
 
         <script type="text/template" class="dashboard-view-template">
-            <div class="login-sign-up-container">
-                <h1>hi <%= window.currentUser.attributes.username %> </h1>
+            <div class="header">
+                <div class="logo"></div> 
+                <p class="welcome-username">welcome, <%= Parse.User.current().attributes.username %> </p>
+                <div class="upload"></div>
                 <input type='file' class="file-uploader" name="whatever"/>
                 <button class="upload-button">Submit</button>
             </div>
+
+        <div class="home-sidebar">
+            <h2>Search</h2>
+            <div class="search">
+                <p>Search Neary by City</p>
+                <input class="search-forecasts" type="text" placeholder="Sarasota, FL">
+                <p>search within</p>
+                <select class="search-forecasts">
+                    <option>1 Mile</option>
+                    <option>5 Miles</option>
+                    <option>10 Miles</option>
+                    <option>20 Miles</option>
+                    <option>30 Miles</option>
+                    <option>50 Miles</option>
+                </select>
+                <h3>Wave Height</h3>
+                <div class="border-divider"></div>
+                <div class="wave-height"></div>
+                <h3>Tides</h3>
+                <div class="border-divider"></div>
+                <div class="tides"></div>
+                <h3>Wind</h3>
+                <div class="border-divider"></div>
+                <div class="wind"></div>
+
+                <!-- <img class="compass-icon" src="images/compass.svg"> -->
+            </div>
+           
         </script>
 
 
