@@ -28,11 +28,7 @@
         <![endif]-->
         <div class="container"></div>
 
-           <!--  <div class="search">
-                <input class="search-forecasts" type="text" placeholder="Sarasota, FL">
-                <img class="compass-icon" src="images/compass.svg">
-
-            </div>
+           <!--  
 
             <input type="text" placeholder="Username" class="sign-up-username">
             <input type="password" placeholder="Password" class="sign-up-password">
@@ -43,19 +39,47 @@
             <button class="logout-button">Logout</button> -->
 
         </div>
-        
+        <!-- <input class="log"></input> -->
         <!-- Homepage View -->
         <script type="text/template" class="home-view-template">
             <div class="header">
 
             <div class="logo"></div>
             <button class="login-button">Login</button>
-            <button class="sign-up-button">Sign Up</button>
             
 
-            <h1>A really great headline will eventually go right here.</h1>
+            <h1>Surf forecasts from buoys and your boys.</h1>
+            <button class="sign-up-button">Sign Up</button>
             <div class="down-pointer"></div>
-            
+      <div class="welcome-filler"></div>
+
+    <div class="home-sidebar">
+        <h2>Search</h2>
+        <div class="search">
+            <p>Search Neary by City</p>
+            <input class="search-forecasts" type="text" placeholder="Sarasota, FL">
+            <p>search within</p>
+            <select class="search-forecasts">
+                <option>1 Mile</option>
+                <option>5 Miles</option>
+                <option>10 Miles</option>
+                <option>20 Miles</option>
+                <option>30 Miles</option>
+                <option>50 Miles</option>
+            </select>
+            <h3>Wave Height</h3>
+            <div class="border-divider"></div>
+            <div class="wave-height"></div>
+            <h3>Tides</h3>
+            <div class="border-divider"></div>
+            <div class="tides"></div>
+            <h3>Wind</h3>
+            <div class="border-divider"></div>
+            <div class="wind"></div>
+
+            <!-- <img class="compass-icon" src="images/compass.svg"> -->
+        </div>
+    </div>
             
         </script>
         
@@ -76,13 +100,21 @@
             <div class="login-sign-up-container">
                 <a class="logo" href="#"></a>
                 <p>Username</p>
-                <input type="text" placeholder="johndoe" class="sign-up-username">
+                <input type="text" placeholder="bobbuickbuck" class="sign-up-username">
                 <p>Create a Password</p>
-                <input type="password" placeholder="Password" class="sign-up-password">
+                <input type="password" placeholder="puppies13" class="sign-up-password">
                 <p>Your Email Address</p>
                 <input type="email" placeholder="you@example.com" class="sign-up-email">
                 <button class="submit-sign-up-button">Sign Up</button>
                 <a href="#/login">Already have an account?</a>
+            </div>
+        </script>
+
+        <script type="text/template" class="dashboard-view-template">
+            <div class="login-sign-up-container">
+                <h1>hi <%= window.currentUser.attributes.username %> </h1>
+                <input type='file' class="file-uploader" name="whatever"/>
+                <button class="upload-button">Submit</button>
             </div>
         </script>
 
@@ -92,6 +124,7 @@
         <script src="../bower_components/jquery/dist/jquery.js"></script>
         <script src="../bower_components/underscore/underscore.js"></script>
         <script src="../bower_components/backbone/backbone.js"></script>
+        <script src="../bower_components/paper/paper-full.min.js"></script>
         <!-- endbower -->
         <!-- endbuild -->
 

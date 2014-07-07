@@ -23,6 +23,8 @@ var HomeView = Parse.View.extend ({
 	},
 
 	login: function() {
+		// $('.log').addClass('slide')
+
 
 		router.navigate('#/login', {trigger: true})
 	},
@@ -44,7 +46,7 @@ var LoginView = Parse.View.extend ({
 	template: _.template($('.login-view-template').text()),
 
 	events: {
-		"click .submit-sign-up-button": "login"
+		"click .login-button": "login"
 	},
 
 	initialize: function () {
@@ -64,7 +66,13 @@ var LoginView = Parse.View.extend ({
 		    console.log('Succesfully logged in!')
 		    $(".login-username").val('');
 		    $(".login-password").val('');
-		    router.navigate('#/dashboard')
+
+		    window.currentUser = user;
+		    console.log(currentUser)
+				console.log('#/dashboard/' + currentUser.id)
+		    router.navigate('#/dashboard/' + currentUser.id)
+		    // var user = Parse.Current.user();
+		    
 		  },
 		  error: function(user, error) {
 		    console.log('Login failed')
@@ -114,4 +122,63 @@ var SignUpView = Parse.View.extend ({
 			  }
 			});
 	}
+});
+
+var DashboardView = Parse.View.extend({
+
+	className: 'dashboard-view',
+
+	template: _.template($('.dashboard-view-template').text()),
+
+	events: {
+			"click .upload-button": "uploadPhoto"
+	},
+
+	initialize: function() {
+		$('.container').append(this.el);
+		this.render();
+	},
+
+	render: function(){
+	    this.$el.html(this.template())
+	    return this;
+	},
+
+	uploadPhoto: function() {
+
+		var fileUploadControl = $(".file-uploader")[0];
+		if (fileUploadControl.files.length > 0) {
+
+		  var file = fileUploadControl.files[0];
+		  var name = "photo.jpg";
+	 
+	  	var parseFile = new Parse.File(name, file);
+		}
+
+		var uploadPromise = parseFile.save()
+
+
+		uploadPromise.then(function() {
+		console.log("Maybe Succesful")
+		}, function(error) {
+			console.log("Upload Failed")
+		});
+
+		uploadPromise.done(function(){
+
+		var uploadPhoto = new Parse.Object("UploadPhoto");
+		uploadPhoto.set("user", window.currentUser.attributes.username );
+		uploadPhoto.set("photo", parseFile.url() );
+		uploadPhoto.set("caption", $('.caption').val() );
+		uploadPhoto.set("photoRef", parseFile);
+
+		// app.collection.add(uploadPhoto)
+
+		uploadPhoto.save()
+		console.log("Success")
+
+	})
+
+}
+
 });

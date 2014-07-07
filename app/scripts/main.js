@@ -23,6 +23,8 @@ Parse.initialize("BA1C8ZngmJPQ6vOTvtCCJq9SEWEBBAR5vPoNuxtE", "tAX4S5an89EtItKoTz
 // });
 
 
+
+
 // User Logout 
 $('.logout-button').click(function() {
 
