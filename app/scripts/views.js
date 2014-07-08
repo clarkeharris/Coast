@@ -183,12 +183,13 @@ var DashboardView = Parse.View.extend({
 		uploadPhoto.set("photoRef", parseFile);
 
 		if ($('.checkbox').is(':checked')){
-		
+
 			geoPromise = Parse.GeoPoint.current()
 			geoPromise.done(function(latlong){
 			uploadPhoto.set('latlong', latlong);
 			
 		}	else {
+
 
 		}
 
@@ -199,10 +200,6 @@ var DashboardView = Parse.View.extend({
 			Parse.User.current().save();
 		})
 
-		// if you wanna fetch current user's posts later, it's
-		// Parse.User.current().relation('posts').query().find().done(function(postsList){
-		//    do cool stuff here 
-		// });
 		console.log("Upload Successful")
 
 	})
