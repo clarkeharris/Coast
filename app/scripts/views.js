@@ -135,13 +135,13 @@ var DashboardView = Parse.View.extend({
 	initialize: function() {
 		$('.container').append(this.el);
 		this.render();
+    this.map();
 		
 	},
 
 	render: function(){
     this.$el.html(this.template())
     return this;
-    map();
 
 	},
 
@@ -182,24 +182,39 @@ var DashboardView = Parse.View.extend({
 		uploadPhoto.set("caption", $('.caption').val() );
 		uploadPhoto.set("photoRef", parseFile);
 
-		if ($('.checkbox').is(':checked')){
-
-			geoPromise = Parse.GeoPoint.current()
-			geoPromise.done(function(latlong){
-			uploadPhoto.set('latlong', latlong);
-			
-		}	else {
-
+		if ($('.current-location').is(':checked')){
+			console.log("checked")
+			var pointPromise = Parse.GeoPoint.current()
+			console.log(pointPromise)
+			pointPromise.done(function(latlong){
+				console.log('latlong', latlong)
+				console.log(latlong.latitude)
+				console.log(latlong.longitude)
+				var point = new Parse.GeoPoint({latitude: latlong.latitude, longitude: latlong.longitude})
+				console.log(point)
+				uploadPhoto.set('location', point)
+				uploadPhoto.save().done(function(){
+					Parse.User.current().relation('posts').add(uploadPhoto);
+					Parse.User.current().save();
+				})
+			})
+		} else {
+			console.log("un-checked")
+			uploadPhoto.save().done(function(){
+				Parse.User.current().relation('posts').add(uploadPhoto);
+				Parse.User.current().save();
+			})
 
 		}
 
 		// app.collection.add(uploadPhoto)
 
-		uploadPhoto.save().done(function(){
-			Parse.User.current().relation('posts').add(uploadPhoto);
-			Parse.User.current().save();
-		})
 
+
+		// if you wanna fetch current user's posts later, it's
+		// Parse.User.current().relation('posts').query().find().done(function(postsList){
+		//    do cool stuff here 
+		// });
 		console.log("Upload Successful")
 
 	})
@@ -209,12 +224,14 @@ var DashboardView = Parse.View.extend({
 map: function() {
 	console.log('wow!')
 	geoPromise = Parse.GeoPoint.current()
+	console.log(geoPromise);
 
 	geoPromise.done(function(latlong){
+		console.log(latlong)
 
 		var baseUrl = "http://maps.googleapis.com/maps/api/staticmap?zoom=13&size=400x400&center=" + latlong.latitude + ',' + latlong.longitude 
 		console.log(baseUrl)
-		$('container').append('<img src="'+ baseUrl +'"/>')
+		$('body').append('<img src="'+ baseUrl +'"/>')
 
 		postsCollection.each(function(post){
 			if (post.get('address')) {
@@ -223,7 +240,7 @@ map: function() {
 				baseUrl += "&markers=color:" + post.get('color') + "%7Clabel:"+ post.get('name') +"%7C" + post.get('latlong').latitude + ',' + post.get('latlong').longitude
 			}
 		})
-		console.log('wow!')
+		console.log('it twerked?')
 	})
 
 }

@@ -13,6 +13,7 @@ var AppRouter = Backbone.Router.extend({
 
 	initialize: function() {
 		console.log('router initialize')
+		postsCollection = new PostsCollection()
 	},
 
 	homePage: function() {
@@ -38,6 +39,7 @@ var AppRouter = Backbone.Router.extend({
 		console.log()
 		$('.container').html('')
 		new DashboardView({model: Parse.User.current()});
+
 		// console.log(Parse.Current.user)
 		
 	}
