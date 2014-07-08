@@ -2,6 +2,7 @@
 // 	model: PostModel
 // });
 
-var PostCollection = Parse.Collection.extend ({
+var PostsCollection = Parse.Collection.extend ({
 	model: PostModel
 });
+

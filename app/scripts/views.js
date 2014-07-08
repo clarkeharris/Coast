@@ -135,11 +135,14 @@ var DashboardView = Parse.View.extend({
 	initialize: function() {
 		$('.container').append(this.el);
 		this.render();
+		
 	},
 
 	render: function(){
-	    this.$el.html(this.template())
-	    return this;
+    this.$el.html(this.template())
+    return this;
+    map();
+
 	},
 
 	logOut: function() {
@@ -166,7 +169,7 @@ var DashboardView = Parse.View.extend({
 		var uploadPromise = parseFile.save()
 
 		uploadPromise.then(function() {
-		console.log("Maybe Succesful")
+		console.log("Mostly Succesful")
 		}, function(error) {
 			console.log("Upload Failed")
 		});
@@ -174,18 +177,59 @@ var DashboardView = Parse.View.extend({
 		uploadPromise.done(function(){
 
 		var uploadPhoto = new Parse.Object("UploadPhoto");
-		uploadPhoto.set("user", Parse.User.current().attributes.username);
+		uploadPhoto.set("parent", Parse.User.current().attributes.username);
 		uploadPhoto.set("photo", parseFile.url() );
 		uploadPhoto.set("caption", $('.caption').val() );
 		uploadPhoto.set("photoRef", parseFile);
 
+		if ($('.checkbox').is(':checked')){
+		
+			geoPromise = Parse.GeoPoint.current()
+			geoPromise.done(function(latlong){
+			uploadPhoto.set('latlong', latlong);
+			
+		}	else {
+
+		}
+
 		// app.collection.add(uploadPhoto)
 
-		uploadPhoto.save()
-		console.log("Success")
+		uploadPhoto.save().done(function(){
+			Parse.User.current().relation('posts').add(uploadPhoto);
+			Parse.User.current().save();
+		})
 
+		// if you wanna fetch current user's posts later, it's
+		// Parse.User.current().relation('posts').query().find().done(function(postsList){
+		//    do cool stuff here 
+		// });
+		console.log("Upload Successful")
+
+	})
+
+},
+
+map: function() {
+	console.log('wow!')
+	geoPromise = Parse.GeoPoint.current()
+
+	geoPromise.done(function(latlong){
+
+		var baseUrl = "http://maps.googleapis.com/maps/api/staticmap?zoom=13&size=400x400&center=" + latlong.latitude + ',' + latlong.longitude 
+		console.log(baseUrl)
+		$('container').append('<img src="'+ baseUrl +'"/>')
+
+		postsCollection.each(function(post){
+			if (post.get('address')) {
+				baseUrl += "&markers=color:" + post.get('color') + "%7Clabel:"+ post.get('name') +"%7C" + post.get('address')
+			} else if (post.get('latlong')) {
+				baseUrl += "&markers=color:" + post.get('color') + "%7Clabel:"+ post.get('name') +"%7C" + post.get('latlong').latitude + ',' + post.get('latlong').longitude
+			}
+		})
+		console.log('wow!')
 	})
 
 }
 
 });
+

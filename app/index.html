@@ -114,11 +114,64 @@
             <div class="header">
                 <div class="logo"></div> 
                 <p class="welcome-username">welcome, <%= Parse.User.current().attributes.username %> </p>
-                <div class="upload"></div>
-                <input type='file' class="file-uploader" name="whatever"/>
-                <button class="upload-button">Submit</button>
-            </div>
+                <a class="upload" href="#openModal"></a>
 
+                <!-- Modal Window -->
+                
+                <div id="openModal" class="modalDialog">
+                  <div>
+                    <a href="#dashboard" title="Close" class="close">X</a>
+                    
+                    <input type='file' class="file-uploader" name="whatever"/>
+
+                    <input type='text' class="location-entry" placeholder="Enter address or nearest location"/>
+                    <input type='checkbox' class="current-location"/>
+                    
+
+                    <select class="wave-height-selection">
+                        <option>flat</option>
+                        <option>1-2 ft</option>
+                        <option>2-4 ft</option>
+                        <option>4-6 ft</option>
+                        <option>6-8 ft</option>
+                        <option>8-10 ft</option>
+                        <option>8-12 ft</option>
+                    </select>
+
+                    <select class="wind-direction-selection">
+                        <option>N</option>
+                        <option>NE</option>
+                        <option>NW</option>
+                        <option>W</option>
+                        <option>E</option>
+                        <option>S</option>
+                        <option>SE</option>
+                        <option>SW</option>
+                    </select> 
+
+                     <select class="tides-selection">
+                        <option>High</option>
+                        <option>High-Mid</option>
+                        <option>Mid</option>
+                        <option>Low Mid</option>
+                        <option>Low</option>
+                    </select>
+
+                    <select class="crowd-selection">
+                        <option>Empty</option>
+                        <option>5+</option>
+                        <option>15+</option>
+                        <option>30+</option>
+                        <option>50+</option>
+                    </select> 
+
+
+                    <button class="upload-button">Post</button>
+
+                  </div>
+                </div>
+                <!-- End Modal Window -->
+            </div>
         <div class="home-sidebar">
             <h2>Search</h2>
             <div class="search">
