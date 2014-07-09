@@ -113,8 +113,17 @@
         <script type="text/template" class="dashboard-view-template">
             <div class="header">
                 <div class="logo"></div>
-                <button class="logout-button">Logout</button>
-                <p class="welcome-username">welcome, <%= Parse.User.current().attributes.username %> </p>
+
+                 <ul class="nav">
+                      <li class=""><a href="#"></a>
+                        <ul>
+                          <li><a class="logout-button" href="">Sign Out</a></li>
+                        </ul>
+                      </li>
+                    </ul>
+
+                <p class="welcome-username"> <%= Parse.User.current().attributes.username %> </p>
+                <img class="avatar" src="<%= Parse.User.current().attributes.avatar.url() %>">
                 <a class="upload" href="#openModal"></a>
 
                 <!-- Modal Window -->
@@ -166,8 +175,11 @@
                         <option>50+</option>
                     </select> 
 
+                    <textarea class="caption"></textarea>
 
                     <button class="upload-button">Post</button>
+
+            
 
                   </div>
                 </div>

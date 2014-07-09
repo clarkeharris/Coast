@@ -69,7 +69,6 @@ var LoginView = Parse.View.extend ({
 
 		    router.navigate('#/dashboard')
 		    
-		    
 		  },
 		  error: function(user, error) {
 		    console.log('Login failed')
@@ -179,8 +178,12 @@ var DashboardView = Parse.View.extend({
 		var uploadPhoto = new Parse.Object("UploadPhoto");
 		uploadPhoto.set("parent", Parse.User.current().attributes.username);
 		uploadPhoto.set("photo", parseFile.url() );
-		uploadPhoto.set("caption", $('.caption').val() );
 		uploadPhoto.set("photoRef", parseFile);
+		uploadPhoto.set("wave_height", $( ".wave-height-selection option:selected" ).text() );
+		uploadPhoto.set("wind_direction", $( ".wind-direction-selection option:selected" ).text() );
+		uploadPhoto.set("tide", $( ".tides-selection option:selected" ).text() );
+		uploadPhoto.set("crowd", $( ".crowd-selection option:selected" ).text() );
+		uploadPhoto.set("caption", $('.caption').val() );
 
 		if ($('.current-location').is(':checked')){
 			console.log("checked")
@@ -229,9 +232,9 @@ map: function() {
 	geoPromise.done(function(latlong){
 		console.log(latlong)
 
-		var baseUrl = "http://maps.googleapis.com/maps/api/staticmap?zoom=13&size=400x400&center=" + latlong.latitude + ',' + latlong.longitude 
+		var baseUrl = "http://maps.googleapis.com/maps/api/staticmap?zoom=13&size=640x250&center=" + latlong.latitude + ',' + latlong.longitude 
 		console.log(baseUrl)
-		$('body').append('<img src="'+ baseUrl +'"/>')
+		$('.container').append('<img src="'+ baseUrl +'"/>')
 
 		postsCollection.each(function(post){
 			if (post.get('address')) {

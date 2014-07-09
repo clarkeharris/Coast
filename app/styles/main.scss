@@ -180,6 +180,79 @@ input {
         margin: 7px 0 0 3%;
     }
 
+    .avatar {
+        float: right;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        margin: 10px 1% 0 0;
+        max-width: 100%;
+    }
+
+    .profile-settings {
+        float: right;
+        width: 0;
+        height: 0;
+        margin: 19px 4% 0 0;
+        border-style: solid;
+        border-width: 6px 4px 0 4px;
+        border-color: #073c60 transparent transparent transparent;
+
+    }
+
+.nav {  
+    float: right; 
+    margin: 19px 4% 0 0;
+    padding: 0 0;
+    // border-style: solid;
+    // border-width: 6px 4px 0 4px;
+    // border-color: #073c60 transparent transparent transparent;
+    background: url('../images/profile-settings-arrow.svg') no-repeat;
+}
+.nav li { 
+    list-style: none; 
+    float: right; 
+    width: 6px; 
+    height: 6px; 
+    line-height: 30px; 
+    text-align: center;
+} 
+.nav li a { 
+    color: white; 
+    text-decoration: none; 
+    display: block; 
+} 
+.nav li a:hover { 
+ 
+} 
+      
+.nav li ul { 
+    position: absolute;  
+    display: none; 
+} 
+.nav li:hover ul { 
+    display: block; 
+} 
+.nav li ul li { 
+
+    display: inline; 
+}
+.nav li ul li a { 
+    width: 100px;
+    float: left;
+    position: relative;
+    right: 130px;
+    top: 15px;
+    border-right: solid 2px #073c60; 
+    border-left: solid 2px #073c60; 
+    border-bottom: solid 2px #073c60;
+    border-radius: 2px;
+    color: #073c60; 
+}
+.nav li ul li a:hover {
+    color: #fb4349;
+}
+
     .login-button {
         float: right;
         border: solid 2px #073c60;
@@ -194,7 +267,7 @@ input {
         float: right;
         color: #073c60;
         cursor: pointer;
-        margin: 13px 3% 0 0;
+        margin: 13px 0.5% 0 0;
     }
 
     .sign-up-button {
@@ -291,10 +364,15 @@ input {
       font-weight: bold;
       border-radius: 2px;
     }
-    
+
+}
+
+.map {
+    float: left;
 }
 
 .home-sidebar {
+    float: left;
     width: 235px;
     background: #073c60;
     padding: 15px 0 0 3%;
