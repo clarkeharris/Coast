@@ -1,21 +1,27 @@
 // bower:scss
 // endbower
 
+html {
+        height: 100%;
+}
+
 body {
     background: #dfdfd5;
     font-family: 'Karla', Helvetica, Arial, sans-serif;
     font-size: 62.5%;
     color: #073c60;
     margin: 0;
+    padding: 0;
+    height: 100%;
 }
 
-canvas {
-    position: absolute;
-    width: 100%;
-    height: 75%;
-    bottom: 0;
-    z-index: -9999;
-}
+// canvas {
+//     position: absolute;
+//     width: 100%;
+//     height: 75%;
+//     bottom: 0;
+//     z-index: -9999;
+// }
 
 img {
     max-width:100;
@@ -303,8 +309,12 @@ input {
 
 }
 
-.map {
-    float: left;
+#map-canvas { 
+    height: 50%;
+    }
+
+img {
+    width: 15%;
 }
 
 .home-sidebar {

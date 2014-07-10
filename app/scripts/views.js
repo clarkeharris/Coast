@@ -12,7 +12,7 @@ var AppView = Parse.View.extend ({
 	},
 
 	addPost: function (photo) {
-		// new PostsView({model: photo});
+		new PostsView({model: photo});
 	}
 
 });
@@ -153,8 +153,8 @@ var DashboardView = Parse.View.extend({
 	initialize: function() {
 		$('.container').append(this.el);
 		this.render();
-    this.map();
-		
+    // this.map();
+    this.googleMaps();
 	},
 
 	render: function(){
@@ -243,44 +243,87 @@ var DashboardView = Parse.View.extend({
 
 },
 
-map: function() {
-	console.log('wow!')
+googleMaps: function(){
+
 	geoPromise = Parse.GeoPoint.current()
 	console.log(geoPromise);
 
-	geoPromise.done(function(latlong){
-		console.log(latlong)
+		geoPromise.done(function (latlong){
+		// console.log(latlong)
 
+	  function initialize() {
+      var mapOptions = {
+        center: new google.maps.LatLng(latlong.latitude + ',' + latlong.longitude),
+        zoom: 8
+      };
+      var map = new google.maps.Map(document.getElementById("map-canvas"),
+          mapOptions);
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);
 
-
-		var baseUrl = "http://maps.googleapis.com/maps/api/staticmap?zoom=13&size=640x250&center=" + latlong.latitude + ',' + latlong.longitude 
-		console.log(baseUrl)
-		var counter = 0
-
-		console.log(postsCollection)
-
-		app.fetchPromise.done(function () {
-
-			if (app.collection.length > 0){
-
-				app.collection.each(function(post){
-					if (post.get('location')) {
-						baseUrl += "&markers=color:" + '0x'+Math.floor(Math.random()*16777215).toString(16) + "%7Clabel:"+ "COOL" +"%7C" + post.get('location').latitude + ',' + post.get('location').longitude
-					}
-
-
-					if (post === app.collection.last()) {
-						console.log('baseUrl is',baseUrl)
-						$('.map-container').attr('src', baseUrl);
-					}
-				})
-			} else {
-				$('.container').append('<img src="'+ baseUrl +'"/>')
-			}
-		})
-	})
-
+  })
 }
+
+// map: function() {
+// 	console.log('wow!')
+// 	geoPromise = Parse.GeoPoint.current()
+// 	console.log(geoPromise);
+
+// 	geoPromise.done(function(latlong){
+// 		console.log(latlong)
+
+
+
+// 		var baseUrl = "http://maps.googleapis.com/maps/api/staticmap?zoom=13&size=640x250&center=" + latlong.latitude + ',' + latlong.longitude 
+// 		console.log(baseUrl)
+// 		var counter = 0
+
+// 		console.log(postsCollection)
+
+// 		app.fetchPromise.done(function () {
+
+// 			if (app.collection.length > 0){
+
+// 				app.collection.each(function(post){
+// 					if (post.get('location')) {
+// 						baseUrl += "&markers=color:" + '0x'+Math.floor(Math.random()*16777215).toString(16) + "%7Clabel:"+ "COOL" +"%7C" + post.get('location').latitude + ',' + post.get('location').longitude
+// 					}
+
+
+// 					if (post === app.collection.last()) {
+// 						console.log('baseUrl is',baseUrl)
+// 						$('.map-container').attr('src', baseUrl);
+// 					}
+// 				})
+// 			} else {
+// 				$('.container').append('<img src="'+ baseUrl +'"/>')
+// 			}
+// 		})
+// 	})
+
+// }
+
+});
+
+var PostsView = Parse.View.extend({
+
+	className: 'posts-view',
+
+	template: _.template($('.posts-view-template').text()),
+
+	events: {
+	},
+
+	initialize: function() {
+		$('.container').append(this.el);
+		this.render();
+	},
+
+	render: function(){
+    renderTemplate = this.template(this.model.attributes);
+		this.$el.html(renderTemplate)
+		return this;
+	}
 
 });
 

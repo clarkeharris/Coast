@@ -18,8 +18,14 @@
         <!-- build:js scripts/vendor/modernizr.js -->
         <script src="../bower_components/modernizr/modernizr.js"></script>
         <!-- endbuild -->
-
         <link href='http://fonts.googleapis.com/css?family=Karla:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+
+        <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCdiETrruDLX8J-FswzibWCPe58h204_VA">
+    </script>
+      <script type="text/javascript">
+      
+      </script>
 
     </head>
     <body>
@@ -27,19 +33,9 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
         <div class="container"></div>
-            <img class="map-container" src="images/ajax-loader.gif">
-           <!--  
-
-            <input type="text" placeholder="Username" class="sign-up-username">
-            <input type="password" placeholder="Password" class="sign-up-password">
-            <input type="email" placeholder="Email" class="sign-up-email">
-            <button class="submit-sign-up-button">Submit</button>
-
-
-            <button class="logout-button">Logout</button> -->
-
+<!--             <img class="map-container" src="images/ajax-loader.gif">
+ -->           <div id="map-canvas"></div> 
         </div>
-        <!-- <input class="log"></input> -->
         <!-- Homepage View -->
         <script type="text/template" class="home-view-template">
             <div class="header">
@@ -55,6 +51,7 @@
 
     <div class="home-sidebar">
         <h2>Search</h2>
+        
         <div class="search">
             <p>Search Neary by City</p>
             <input class="search-forecasts" type="text" placeholder="Sarasota, FL">
@@ -186,6 +183,7 @@
                   </div>
                 </div>
                 <!-- End Modal Window -->
+
             </div>
         <div class="home-sidebar">
             <h2>Search</h2>
@@ -210,12 +208,14 @@
                 <h3>Wind</h3>
                 <div class="border-divider"></div>
                 <div class="wind"></div>
-
-                <!-- <img class="compass-icon" src="images/compass.svg"> -->
+                
             </div>
            
         </script>
 
+         <script type="text/template" class="posts-view-template">
+            <img class="user-posts" src="<%= photoRef.url() %>">
+         </script>
 
         <!-- build:js scripts/vendor.js -->
         <!-- bower:js -->
