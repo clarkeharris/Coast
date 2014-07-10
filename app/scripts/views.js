@@ -1,5 +1,24 @@
 console.log('views loaded')
 
+var AppView = Parse.View.extend ({
+
+	className: "post-view",
+
+	initialize: function() {
+		this.collection = new PostsCollection();
+		this.collection.on('add', this.addPost)
+		this.fetchPromise = this.collection.fetch({add:true});
+		console.log('fetchPromise is', this.fetchPromise)
+	},
+
+	addPost: function (photo) {
+		// new PostsView({model: photo});
+	}
+
+});
+
+var app = new AppView();
+
 var HomeView = Parse.View.extend ({
 	
 	className: 'home-view',
@@ -232,18 +251,33 @@ map: function() {
 	geoPromise.done(function(latlong){
 		console.log(latlong)
 
+
+
 		var baseUrl = "http://maps.googleapis.com/maps/api/staticmap?zoom=13&size=640x250&center=" + latlong.latitude + ',' + latlong.longitude 
 		console.log(baseUrl)
-		$('.container').append('<img src="'+ baseUrl +'"/>')
+		var counter = 0
 
-		postsCollection.each(function(post){
-			if (post.get('address')) {
-				baseUrl += "&markers=color:" + post.get('color') + "%7Clabel:"+ post.get('name') +"%7C" + post.get('address')
-			} else if (post.get('latlong')) {
-				baseUrl += "&markers=color:" + post.get('color') + "%7Clabel:"+ post.get('name') +"%7C" + post.get('latlong').latitude + ',' + post.get('latlong').longitude
+		console.log(postsCollection)
+
+		app.fetchPromise.done(function () {
+
+			if (app.collection.length > 0){
+
+				app.collection.each(function(post){
+					if (post.get('location')) {
+						baseUrl += "&markers=color:" + '0x'+Math.floor(Math.random()*16777215).toString(16) + "%7Clabel:"+ "COOL" +"%7C" + post.get('location').latitude + ',' + post.get('location').longitude
+					}
+
+
+					if (post === app.collection.last()) {
+						console.log('baseUrl is',baseUrl)
+						$('.map-container').attr('src', baseUrl);
+					}
+				})
+			} else {
+				$('.container').append('<img src="'+ baseUrl +'"/>')
 			}
 		})
-		console.log('it twerked?')
 	})
 
 }
