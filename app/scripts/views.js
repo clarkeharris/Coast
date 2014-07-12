@@ -147,7 +147,8 @@ var DashboardView = Parse.View.extend({
 
 	events: {
 			"click .upload-button": "uploadPhoto",
-			"click .logout-button": "logOut"
+			"click .logout-button": "logOut",
+			"click .upload-feature": "uploadFeature"
 	},
 
 	initialize: function() {
@@ -170,6 +171,10 @@ var DashboardView = Parse.View.extend({
 	var currentUser = Parse.User.current();
 
 	router.navigate('#/login')
+
+	},
+
+	uploadFeature: function() {
 
 	},
 

@@ -178,20 +178,17 @@ input {
 
 .header {
     position: relative;
-    width: 100%;
+    width: 92%;
     height: 350px;
     padding-right: 4%;
     padding-left: 4%;
-    background: url('../images/coast-header-1.jpg') no-repeat;
+    background:
+      linear-gradient(
+        rgba(37, 62, 95, 0.75), 
+        rgba(37, 62, 95, 0.75)
+      ),
+       url('../images/coast-header-1.jpg') no-repeat;
 
-
-    // .header-overlay {
-    // position: absolute;
-    // height: 350px;
-    // width: 100%;
-    // background: rgba(37, 62, 95, 0.75);
-
-    // }
 
     h1 {
     font-weight: 400;
@@ -247,25 +244,68 @@ input {
         z-index: 1;
     }
 
-    .search-box {
+    .search-row {
       position: absolute;
       bottom: 0;
-      width: 280px;
-      padding: 0 30px 30px 30px;
-      border-left: 1px solid #fff;
-      border-top: 1px solid #fff;
-      border-right: 1px solid #fff;
+      overflow: hidden;
+
+      .search-box {
+        float: left;
+        width: 220px;
+        height: 170px;
+        padding: 0 30px 30px 30px;
+        border-left: 1px solid #fff;
+        border-top: 1px solid #fff;
+        border-right: 1px solid #fff;
+      }
 
       .search-region {
         position: absolute;
         bottom: 30px;
-        width: 250px;
+        width: 201px;
         border-bottom: 1px solid #fff;
         color: #fff;
         background: none;
         background: url(../images/search.svg) no-repeat right center;        
       }
+
+      .upload-feature {
+        position: relative;
+        float: left;
+        height: 201px;
+        padding: 20px 20px;
+        text-align: center;
+        text-transform: uppercase;
+        color: #fff;
+        background: #fb4349;
+        margin: 0;
+        z-index: 2;
     }
+
+      .slide .inner {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 600px;
+        height: 141px;
+        padding: 30px 60px;
+        background-color: #fff;
+        color: #333;
+    }
+
+    .slide {
+      position: relative;
+      float: left;
+      overflow: hidden;
+      height: 201px;
+      width: 600px;
+      }
+
+    p {
+      font-size: 1.4em;
+      letter-spacing: 0.1em;
+    }
+  }
 
   .upload {
       float: right;
@@ -279,11 +319,43 @@ input {
 }
 
 .upload-post-box{
+  position: relative;
   width: 100%;
+  color: #253e5f;
 
-  .upload-feature {
-    padding: 5px 4%;
-    background: #fb4349;
+   .file-uploader {
+    color: transparent;
+  }
+
+  .file-uploader::-webkit-file-upload-button {
+    visibility: hidden;
+  }
+
+  .file-uploader::before {
+    content: 'Select Photo';
+    color: #253e5f;
+    font-size: 0.8em;
+    display: inline-block;
+    background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);
+    border: 1px solid #fb4349;
+    border-radius: 1px;
+    padding: 5px 8px;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
+  }
+
+  .file-uploader:hover::before {
+   
+  }
+
+  .file-uploader:active {
+    outline: 0;
+  }
+
+  .file-uploader:active::before {
+    background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9); 
   }
 }
 
