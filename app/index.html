@@ -102,89 +102,83 @@
                 <input type="password" placeholder="puppies13" class="sign-up-password">
                 <p>Your Email Address</p>
                 <input type="email" placeholder="you@example.com" class="sign-up-email">
-                <button class="submit-sign-up-button">Sign Up</button>
+                <button class="submit-sign-up-button">Sign Up</button>home-view-template
                 <a href="#/login">Already have an account?</a>
             </div>
         </script>
 
         <script type="text/template" class="dashboard-view-template">
-            <div class="header">
-                <div class="nav-bar">
-                    <div class="logo"></div>
+          <div class="header">
+            <div class="header-overlay"></div>
+                  <div class="logo"></div>
+                  <div class="logout-button"></div>
+                  <!--<img class="avatar" src="<%= Parse.User.current().attributes.avatar.url() %>">-->
+                   <p class="welcome-username"> <%= Parse.User.current().attributes.username %> </p> 
 
-                     <ul class="nav">
-                          <li class=""><a href="#"></a>
-                            <ul>
-                              <li><a class="logout-button" href="">Sign Out</a></li>
-                            </ul>
-                          </li>
-                        </ul>
-
-                    <p class="welcome-username"> <%= Parse.User.current().attributes.username %> </p>
-                    <img class="avatar" src="<%= Parse.User.current().attributes.avatar.url() %>">
-                    <a class="upload" href="#openModal"></a>
+                <div class="search-box">
+                    <h1>Search</h1>
+                    <input type="text" placeholder="Santa Cruz" class="search-region">
+                    </div>
                 </div>
+          </div>
 
-                <!-- Modal Window -->
-                
-                <div id="openModal" class="modalDialog">
-                  <div>
-                    <a href="#dashboard" title="Close" class="close">X</a>
-                    
-                    <input type='file' class="file-uploader" name="whatever"/>
+          <div class="upload-post-box">
+          <div class="upload-feature">Upload</div>
 
-                    <input type='text' class="location-entry" placeholder="Enter address or nearest location"/>
-                    <input type='checkbox' class="current-location"/>
-                    
+            <input type='file' class="file-uploader" name="whatever"/>
 
-                    <select class="wave-height-selection">
-                        <option>flat</option>
-                        <option>1-2 ft</option>
-                        <option>2-4 ft</option>
-                        <option>4-6 ft</option>
-                        <option>6-8 ft</option>
-                        <option>8-10 ft</option>
-                        <option>8-12 ft</option>
-                    </select>
+            <input type='text' class="location-entry" placeholder="Enter address or nearest location"/>
+            <input type='checkbox' class="current-location"/>
+            
 
-                    <select class="wind-direction-selection">
-                        <option>N</option>
-                        <option>NE</option>
-                        <option>NW</option>
-                        <option>W</option>
-                        <option>E</option>
-                        <option>S</option>
-                        <option>SE</option>
-                        <option>SW</option>
-                    </select> 
+            <select class="wave-height-selection">
+                <option>flat</option>
+                <option>1-2 ft</option>
+                <option>2-4 ft</option>
+                <option>4-6 ft</option>
+                <option>6-8 ft</option>
+                <option>8-10 ft</option>
+                <option>8-12 ft</option>
+            </select>
 
-                     <select class="tides-selection">
-                        <option>High</option>
-                        <option>High-Mid</option>
-                        <option>Mid</option>
-                        <option>Low Mid</option>
-                        <option>Low</option>
-                    </select>
+            <select class="wind-direction-selection">
+                <option>N</option>
+                <option>NE</option>
+                <option>NW</option>
+                <option>W</option>
+                <option>E</option>
+                <option>S</option>
+                <option>SE</option>
+                <option>SW</option>
+            </select> 
 
-                    <select class="crowd-selection">
-                        <option>Empty</option>
-                        <option>5+</option>
-                        <option>15+</option>
-                        <option>30+</option>
-                        <option>50+</option>
-                    </select> 
+             <select class="tides-selection">
+                <option>High</option>
+                <option>High-Mid</option>
+                <option>Mid</option>
+                <option>Low Mid</option>
+                <option>Low</option>
+            </select>
 
-                    <textarea class="caption"></textarea>
+            <select class="crowd-selection">
+                <option>Empty</option>
+                <option>5+</option>
+                <option>15+</option>
+                <option>30+</option>
+                <option>50+</option>
+            </select> 
 
-                    <button class="upload-button">Post</button>
+            <textarea class="caption"></textarea>
+
+            <button class="upload-button">Post</button>
+
+          </div>
 
             
 
-                  </div>
-                </div>
-                <!-- End Modal Window -->
-
-            </div>
+             <!--<div class="search">
+                <input type="text" placeholder="Search" class="forecast-search">
+            </div> -->
         <div class="home-sidebar">
             <h2>Search</h2>
             <div class="search">
@@ -208,7 +202,7 @@
                 <h3>Wind</h3>
                 <div class="border-divider"></div>
                 <div class="wind"></div>
-                
+
             </div>
            
         </script>
