@@ -49,7 +49,8 @@ p {
 button {
     padding: 5px 10px;
     font-family: 'Karla', Helvetica, Arial, sans-serif;
-    font-size: 1.2em;
+    font-size: 1.4em;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
     border: none;
 }
@@ -58,7 +59,6 @@ input {
     font-family: 'Karla', Helvetica, Arial, sans-serif;
     font-size: 1.8em;
     border: none;
-    padding-left: 0.5em;
     }
 
 .logo {
@@ -252,7 +252,7 @@ input {
       .search-box {
         float: left;
         width: 220px;
-        height: 170px;
+        height: 140px;
         padding: 0 30px 30px 30px;
         border-left: 1px solid #fff;
         border-top: 1px solid #fff;
@@ -261,7 +261,7 @@ input {
 
       .search-region {
         position: absolute;
-        bottom: 30px;
+        bottom: 60px;
         width: 201px;
         border-bottom: 1px solid #fff;
         color: #fff;
@@ -269,10 +269,18 @@ input {
         background: url(../images/search.svg) no-repeat right center;        
       }
 
+      .search {
+        position: absolute;
+        bottom: 20px;
+        background: #5f95d6;
+        border-radius: 1px;
+        color: #fff;
+      }
+
       .upload-feature {
         position: relative;
         float: left;
-        height: 201px;
+        height: 171px;
         padding: 20px 20px;
         text-align: center;
         text-transform: uppercase;
@@ -280,88 +288,182 @@ input {
         background: #fb4349;
         margin: 0;
         z-index: 2;
-    }
+      }
 
       .slide .inner {
         position: absolute;
         left: 0;
         bottom: 0;
-        width: 600px;
+        width: 560px;
         height: 141px;
-        padding: 30px 60px;
+        padding: 15px 0 15px 60px;
         background-color: #fff;
         color: #333;
-    }
+      }
 
     .slide {
       position: relative;
       float: left;
       overflow: hidden;
-      height: 201px;
-      width: 600px;
+      height: 171px;
+      width: 620px;
       }
 
-    p {
+     .file-uploader {
+        width: 108px;
+        height: 29px;
+        float: left;
+        margin-bottom: 15px;
+        cursor: pointer;
+        color: transparent;
+      } 
+
+      .file-uploader::-webkit-file-upload-button {
+        visibility: hidden;
+      }
+
+      .file-uploader::before {
+        content: 'Select Photo';
+        color: #253e5f;
+        font-size: 0.75em;
+        display: inline-block;
+        background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);
+        border: 1px solid #fb4349;
+        border-radius: 1px;
+        padding: 5px 8px;
+        outline: none;
+        white-space: nowrap;
+        -webkit-user-select: none;
+      }
+
+      .file-uploader:hover::before {
+        background: #fb4349;
+      }
+
+      .file-uploader:active {
+        outline: 0;
+      }
+
+    select {
+      width: 129px;
+      margin-right: 10px;
+      margin-bottom: 15px;
+      padding: 5px 25px 5px 8px;
+      font-family: 'Karla', Helvetica, Arial, sans-serif;
       font-size: 1.4em;
-      letter-spacing: 0.1em;
+      color: #253e5f;
+      border: solid 1px #fb4349;
+      -webkit-appearance: none;
+      -webkit-border-radius: 0px;
+      border-radius: 0;
+      background: url(../images/selection-arrow.svg) no-repeat right center;
+    }
+
+    .location-entry {
+      float: left;
+      border-bottom: solid 1px #fb4349;
+      clear: right;
+      font-size: 1.4em;
+    }
+    
+    input[type='checkbox'] {
+      float: left;
+      margin-bottom: 15px;
+      -webkit-appearance: button;
+      width: 25px;
+      border-radius: 50%;
+      height: 25px;
+      cursor: pointer;
+      position: relative;
+      background: url(../images/compass-gray.svg) no-repeat center;
+      transition: background 1s;
+
+      &:focus {
+        outline: 0;
+      }
+    }
+    
+  
+    input[type='checkbox']:after{
+      content: "";
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: #fdfdfd;
+      margin: 4%;
+      transition: .5s all;
+    
+    }
+
+    input[type='checkbox']:checked{
+      background: url(../images/compass-red.svg) no-repeat center;
+    } 
+
+    .current-location {
+      clear: right;
+      float: left;
+    }
+
+    .current-location-about {
+      display: inline-block;
+      margin-top: 10px;
+      color: #ccc;
+    }
+
+    .wave-height-selection {
+      clear: left;
+      float: left;
+    }
+
+    .wind-direction-selection {
+      float: left;
+    }
+
+    .tides-selection {
+      float: left;
+    }
+
+    .crowd-selection {
+      float: left;
+    }
+
+    textarea {
+      margin: 0;
+      width: 270px;
+      height: 48px;
+    }
+
+    .caption {
+      float: left;
+      margin: 0 10px 15px 0;
+      padding-left: 8px;
+      border: solid 1px #fb4349;
+    }
+
+     .upload-button {
+      float: left;
+      margin: 0;
+      color: #fff;
+      background: #fb4349;
+      cursor: pointer;
     }
   }
 
   .upload {
-      float: right;
-      margin: 20px 3% 0 0;
-      width: 20px;
-      height: 20px;
-      background: url('../images/upload.svg') no-repeat;
-      cursor: pointer;
-  }
-
-}
-
-.upload-post-box{
-  position: relative;
-  width: 100%;
-  color: #253e5f;
-
-   .file-uploader {
-    color: transparent;
-  }
-
-  .file-uploader::-webkit-file-upload-button {
-    visibility: hidden;
-  }
-
-  .file-uploader::before {
-    content: 'Select Photo';
-    color: #253e5f;
-    font-size: 0.8em;
-    display: inline-block;
-    background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);
-    border: 1px solid #fb4349;
-    border-radius: 1px;
-    padding: 5px 8px;
-    outline: none;
-    white-space: nowrap;
-    -webkit-user-select: none;
+    float: right;
+    margin: 20px 3% 0 0;
+    width: 20px;
+    height: 20px;
+    background: url('../images/upload.svg') no-repeat;
     cursor: pointer;
   }
 
-  .file-uploader:hover::before {
-   
-  }
-
-  .file-uploader:active {
-    outline: 0;
-  }
-
-  .file-uploader:active::before {
-    background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9); 
-  }
 }
 
 #map-canvas { 
-    height: 50%;
-    }
+  height: 50%;
+}
 
 img {
     width: 50%;

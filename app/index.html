@@ -117,8 +117,9 @@
                 
                 <div class="search-row">
                   <div class="search-box">
-                      <h1>Search</h1>
+                      <h1>Forecasts</h1>
                       <input type="text" placeholder="Santa Cruz" class="search-region">
+                      <button class="search">Search</button>
                   </div>
   
                 <div class="slide">
@@ -127,53 +128,58 @@
                   U<br>p<br>l<br>o<br>a<br>d
                   </button>
   
-                  <div class="inner" style="left: -675px;">
+                  <div class="inner" style="left: -695px;">
 
 
             <input type='file' class="file-uploader" name="whatever"/>
 
-            <input type='text' class="location-entry" placeholder="Enter address or nearest location"/>
-            <input type='checkbox' class="current-location"/>
+            <input type='text' class="location-entry" placeholder="Enter Zip Code"/>
+            
+            <input type='checkbox' class="current-location"/><span class="current-location-about"> Use current location</span>
             
 
             <select class="wave-height-selection">
-                <option>flat</option>
-                <option>1-2 ft</option>
-                <option>2-4 ft</option>
-                <option>4-6 ft</option>
-                <option>6-8 ft</option>
-                <option>8-10 ft</option>
-                <option>8-12 ft</option>
+              <option value="" disabled selected>Wave Height</option>
+              <option>flat</option>
+              <option>1-2 ft</option>
+              <option>2-4 ft</option>
+              <option>4-6 ft</option>
+              <option>6-8 ft</option>
+              <option>8-10 ft</option>
+              <option>8-12 ft</option>
             </select>
 
             <select class="wind-direction-selection">
-                <option>N</option>
-                <option>NE</option>
-                <option>NW</option>
-                <option>W</option>
-                <option>E</option>
-                <option>S</option>
-                <option>SE</option>
-                <option>SW</option>
+              <option value="" disabled selected>Wind Direction</option>
+              <option>N</option>
+              <option>NE</option>
+              <option>NW</option>
+              <option>W</option>
+              <option>E</option>
+              <option>S</option>
+              <option>SE</option>
+              <option>SW</option>
             </select> 
 
              <select class="tides-selection">
-                <option>High</option>
-                <option>High-Mid</option>
-                <option>Mid</option>
-                <option>Low Mid</option>
-                <option>Low</option>
+             <option value="" disabled selected>Tide</option>
+              <option>High</option>
+              <option>High-Mid</option>
+              <option>Mid</option>
+              <option>Low Mid</option>
+              <option>Low</option>
             </select>
 
             <select class="crowd-selection">
-                <option>Empty</option>
-                <option>5+</option>
-                <option>15+</option>
-                <option>30+</option>
-                <option>50+</option>
+            <option value="" disabled selected>Crowd</option>
+              <option>Empty</option>
+              <option>5+</option>
+              <option>15+</option>
+              <option>30+</option>
+              <option>50+</option>
             </select> 
 
-            <textarea class="caption"></textarea>
+            <textarea class="caption" placeholder="Such tubes much surf..."></textarea>
 
             <button class="upload-button">Post</button>
 
