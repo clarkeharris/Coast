@@ -21,11 +21,12 @@
         <link href='http://fonts.googleapis.com/css?family=Karla:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
 
         <script type="text/javascript"
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCdiETrruDLX8J-FswzibWCPe58h204_VA">
-    </script>
-      <script type="text/javascript">
-      
-      </script>
+          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCdiETrruDLX8J-FswzibWCPe58h204_VA">
+        </script>
+
+        <script type="text/javascript"
+          src="http://masonry.desandro.com/masonry.pkgd.min.js">
+        </script>
 
     </head>
     <body>
@@ -34,7 +35,7 @@
         <![endif]-->
         <div class="container"></div>
 <!--             <img class="map-container" src="images/ajax-loader.gif">
- -->           <div id="map-canvas"></div> 
+ -->
         </div>
         <!-- Homepage View -->
         <script type="text/template" class="home-view-template">
@@ -48,35 +49,6 @@
             <button class="sign-up-button">Sign Up</button>
             <div class="down-pointer"></div>
       <div class="welcome-filler"></div>
-
-    <div class="home-sidebar">
-        <h2>Search</h2>
-        
-        <div class="search">
-            <p>Search Neary by City</p>
-            <input class="search-forecasts" type="text" placeholder="Sarasota, FL">
-            <p>search within</p>
-            <select class="search-forecasts">
-                <option>1 Mile</option>
-                <option>5 Miles</option>
-                <option>10 Miles</option>
-                <option>20 Miles</option>
-                <option>30 Miles</option>
-                <option>50 Miles</option>
-            </select>
-            <h3>Wave Height</h3>
-            <div class="border-divider"></div>
-            <div class="wave-height"></div>
-            <h3>Tides</h3>
-            <div class="border-divider"></div>
-            <div class="tides"></div>
-            <h3>Wind</h3>
-            <div class="border-divider"></div>
-            <div class="wind"></div>
-
-            <!-- <img class="compass-icon" src="images/compass.svg"> -->
-        </div>
-    </div>
             
         </script>
         
@@ -108,18 +80,24 @@
         </script>
 
         <script type="text/template" class="dashboard-view-template">
+          <nav>
+            <div class="logo"></div>
+              <div class="logout-button"></div>
+              <!--<img class="avatar" src="<%= Parse.User.current().attributes.avatar.url() %>">-->
+              <p class="welcome-username"> <%= Parse.User.current().attributes.username %> </p> 
+          </nav>
           <div class="header">
             <div class="header-overlay"></div>
-                  <div class="logo"></div>
-                  <div class="logout-button"></div>
-                  <!--<img class="avatar" src="<%= Parse.User.current().attributes.avatar.url() %>">-->
-                   <p class="welcome-username"> <%= Parse.User.current().attributes.username %> </p> 
                 
+                <p class="date">July 12, 2014</p>
+                <h1 class="forecast-location"> Santa Cruz </h1>
+                <p class="water-temp">Water Temperature: 57F</p>
+
                 <div class="search-row">
                   <div class="search-box">
-                      <h1>Forecasts</h1>
+                      <h2>Search</h2>
                       <input type="text" placeholder="Santa Cruz" class="search-region">
-                      <button class="search">Search</button>
+                      <button class="search">Check it</button>
                   </div>
   
                 <div class="slide">
@@ -189,40 +167,43 @@
 
           </div>
       </div>
+      <div id="container" class="js-masonry"
+  data-masonry-options='{ "columnWidth": 0, "itemSelector": ".item" }'>
 
-             <!--<div class="search">
-                <input type="text" placeholder="Search" class="forecast-search">
-            </div> -->
-        <div class="home-sidebar">
-            <h2>Search</h2>
-            <div class="search">
-                <p>Search Neary by City</p>
-                <input class="search-forecasts" type="text" placeholder="Sarasota, FL">
-                <p>search within</p>
-                <select class="search-forecasts">
-                    <option>1 Mile</option>
-                    <option>5 Miles</option>
-                    <option>10 Miles</option>
-                    <option>20 Miles</option>
-                    <option>30 Miles</option>
-                    <option>50 Miles</option>
-                </select>
-                <h3>Wave Height</h3>
-                <div class="border-divider"></div>
-                <div class="wave-height"></div>
-                <h3>Tides</h3>
-                <div class="border-divider"></div>
-                <div class="tides"></div>
-                <h3>Wind</h3>
-                <div class="border-divider"></div>
-                <div class="wind"></div>
+        <div class="wave-height item">
+          <h3>Wave Height</h3>
+        </div>
 
-            </div>
-           
+        <div class="wind item">
+          <h3>Wind</h3>
+        </div>
+
+        <div class="tides item">
+          <h3>Tides</h3>
+        </div>
+
+        <div id="map-canvas"></div>
+
+        <div class="local-reports item">
+          <h3>Local Reports</h3>
+        </div>
+
+      </div>
+
         </script>
 
          <script type="text/template" class="posts-view-template">
-            <img class="user-posts" src="<%= photoRef.url() %>">
+          
+            <div class="user-posts">
+              <img src="<%= photoRef.url() %>">
+              <div class="post-info">
+                <p class="post-username"> <%= parent %> </p>
+                <p class="post-wave-height"> <%= wave_height %> </p>
+                <p class="post-wind-direction"> <%= wind_direction %> </p>
+                <p class="post-tide"> <%= tide %> </p>
+                <p class="post-crowd"> <%= crowd %> </p>
+                </div>
+            </div>
          </script>
 
         <!-- build:js scripts/vendor.js -->
@@ -247,6 +228,7 @@
         </script>
 
         <!-- build:js({app,.tmp}) scripts/main.js -->
+        
         <script src="scripts/main.js"></script>
         <script src="scripts/models.js"></script>
         <script src="scripts/collections.js"></script>

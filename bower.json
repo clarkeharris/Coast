@@ -4,7 +4,9 @@
   "dependencies": {
     "modernizr": "~2.6.2",
     "jquery": "~1.11.0",
-    "backbone": "~1.1.2"
+    "backbone": "~1.1.2",
+    "masonry": "~3.1.5",
+    "imagesloaded": "~3.1.8"
   },
   "devDependencies": {}
 }

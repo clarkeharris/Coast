@@ -10,3 +10,10 @@ var PostModel = Parse.Object.extend ({
 	defaults: {
 	}
 });
+
+var ForecastModel = Parse.Object.extend ({
+	className: "SurfSpotsForecast",
+	defaults: {
+	}
+});
+

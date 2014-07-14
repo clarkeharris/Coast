@@ -156,6 +156,7 @@ var DashboardView = Parse.View.extend({
 		this.render();
     // this.map();
     this.googleMaps();
+    this.forecastName();
 	},
 
 	render: function(){
@@ -234,7 +235,7 @@ var DashboardView = Parse.View.extend({
 
 		}
 
-		// app.collection.add(uploadPhoto)
+		app.collection.add(uploadPhoto)
 
 
 
@@ -247,18 +248,27 @@ var DashboardView = Parse.View.extend({
 	})
 
 },
+forecastName: function() {
+
+	var surfSpot = new SpotsCollection();
+
+	surfSpot.url = 'http://0.0.0.0:3000/api.spitcast.com/api/spot/all';
+	// $.get('http://0.0.0.0:3000/api.spitcast.com/api/spot/all')
+	// surfSpot.fetch();
+	var spotNames = _.pluck( surfSpot, "spot_name")
+},
 
 googleMaps: function(){
 
-	geoPromise = Parse.GeoPoint.current()
-	console.log(geoPromise);
+	// geoPromise = Parse.GeoPoint.current()
+	// console.log(geoPromise);
 
-		geoPromise.done(function (latlong){
+		// geoPromise.done(function (latlong){
 		// console.log(latlong)
 
 	  function initialize() {
       var mapOptions = {
-        center: new google.maps.LatLng(latlong.latitude + ',' + latlong.longitude),
+        center: new google.maps.LatLng(36.9720, 122.0263),
         zoom: 8
       };
       var map = new google.maps.Map(document.getElementById("map-canvas"),
@@ -266,8 +276,8 @@ googleMaps: function(){
     }
     google.maps.event.addDomListener(window, 'load', initialize);
 
-  })
-}
+  }
+// }
 
 // map: function() {
 // 	console.log('wow!')
