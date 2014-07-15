@@ -39,7 +39,6 @@ var AppRouter = Backbone.Router.extend({
 		console.log()
 		$('.container').html('')
 		new DashboardView({model: Parse.User.current()});
-		new PostsView();
 		
 	}
 

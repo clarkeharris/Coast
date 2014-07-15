@@ -33,10 +33,14 @@
         <!--[if lt IE 10]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
+
         <div class="container"></div>
 <!--             <img class="map-container" src="images/ajax-loader.gif">
  -->
         </div>
+
+        <div class="posts-container"></div>
+
         <!-- Homepage View -->
         <script type="text/template" class="home-view-template">
             <div class="header">
@@ -82,6 +86,7 @@
         <script type="text/template" class="dashboard-view-template">
           <nav>
             <div class="logo"></div>
+
               <div class="logout-button"></div>
               <!--<img class="avatar" src="<%= Parse.User.current().attributes.avatar.url() %>">-->
               <p class="welcome-username"> <%= Parse.User.current().attributes.username %> </p> 
@@ -172,6 +177,7 @@
 
         <div class="wave-height item">
           <h3>Wave Height</h3>
+          <canvas id="wave-height-chart" width="600" height="400"></canvas>
         </div>
 
         <div class="wind item">
@@ -180,6 +186,7 @@
 
         <div class="tides item">
           <h3>Tides</h3>
+          <canvas id="tide-chart" width="560" height="100"></canvas>
         </div>
 
         <div id="map-canvas"></div>
@@ -198,10 +205,10 @@
               <img src="<%= photoRef.url() %>">
               <div class="post-info">
                 <p class="post-username"> <%= parent %> </p>
-                <p class="post-wave-height"> <%= wave_height %> </p>
-                <p class="post-wind-direction"> <%= wind_direction %> </p>
-                <p class="post-tide"> <%= tide %> </p>
-                <p class="post-crowd"> <%= crowd %> </p>
+                <p class="post-wave-height">Wave Height: <%= wave_height %> </p>
+                <p class="post-wind-direction">Wind Direction: <%= wind_direction %> </p>
+                <p class="post-tide">Tide: <%= tide %> </p>
+                <p class="post-crowd">Crowd: <%= crowd %> </p>
                 </div>
             </div>
          </script>
@@ -211,7 +218,9 @@
         <script src="../bower_components/jquery/dist/jquery.js"></script>
         <script src="../bower_components/underscore/underscore.js"></script>
         <script src="../bower_components/backbone/backbone.js"></script>
+        <script src="../bower_components/chartjs/Chart.js"></script>
         <script src="../bower_components/paper/paper-full.min.js"></script>
+        <script src="../bower_components/imagesloaded/imagesloaded.js"></script>
         <!-- endbower -->
         <!-- endbuild -->
 

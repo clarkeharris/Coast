@@ -8,10 +8,26 @@ var AppView = Parse.View.extend ({
 		this.collection = new PostsCollection();
 		this.collection.on('add', this.addPost)
 		this.fetchPromise = this.collection.fetch({add:true});
+
+		this.fetchPromise.done(function(){
+			// make sure all of the images are loaded first.
+			imagesLoaded(document.querySelectorAll('.posts-view'), function () {
+				var msnry = new Masonry( $('.posts-container')[0], {
+				  // options
+				  columnWidth: 300,
+				  itemSelector: '.posts-view'
+				});
+
+				$('.posts-container').addClass('visible');
+			})
+
+		});
+
 		console.log('fetchPromise is', this.fetchPromise)
 	},
 
 	addPost: function (photo) {
+		// console.log('photo is', photo)
 		new PostsView({model: photo});
 	}
 
@@ -148,7 +164,8 @@ var DashboardView = Parse.View.extend({
 	events: {
 			"click .upload-button": "uploadPhoto",
 			"click .logout-button": "logOut",
-			"click .upload-feature": "uploadFeature"
+			"click .upload-feature": "uploadFeature",
+			"click .search": "forecastName"
 	},
 
 	initialize: function() {
@@ -252,10 +269,95 @@ forecastName: function() {
 
 	var surfSpot = new SpotsCollection();
 
-	surfSpot.url = 'http://0.0.0.0:3000/api.spitcast.com/api/spot/all';
-	// $.get('http://0.0.0.0:3000/api.spitcast.com/api/spot/all')
+	surfSpot.url = 'http://0.0.0.0:3000/api/spot/all';
+	// $.get('http://0.0.0.0:3000/api/spot/all')
 	// surfSpot.fetch();
 	var spotNames = _.pluck( surfSpot, "spot_name")
+
+	// 
+
+	$('.search-region').change(function(){
+	var name = $(this).val();
+
+	$.get('http://0.0.0.0:3000/api/county/wind/' + name).done(function(data){
+		console.log('wind speeds for', name, 'are', _.pluck(data, 'speed_mph'))
+	});
+
+	$.get('http://0.0.0.0:3000/api/county/swell/' + name).done(function(data){
+		_.each(data, function(item) {
+			console.log('swell height for', name, 'is', item);
+			_.each(item, function(subItem) {
+
+			// console.log('subItem swell height for', name, 'is', subItem );
+			})
+		});
+	});
+
+$.get('http://0.0.0.0:3000/api/county/swell/' + name).done(function(data){
+		var swellChartLabels = [];
+		var swellChartData = [];
+		_.each(data, function(item) {
+			swellChartLabels.push(item.date);
+			swellChartData.push(item.hst*3);
+		});
+
+		// 	console.log('swell height for', name, 'is', item);
+		// 	_.each(item, function(subItem) {
+
+			var swellInfo = {
+	    labels: swellChartLabels,
+	    datasets: [
+	        {
+	            label: "My First dataset",
+	            fillColor: "rgba(7,60,96,1)",
+	            strokeColor: "rgba(220,220,220,1)",
+	            pointColor: "rgba(220,220,220,1)",
+	            pointStrokeColor: "#fff",
+	            pointHighlightFill: "#fff",
+	            pointHighlightStroke: "rgba(220,220,220,1)",
+	            data: swellChartData
+	        }
+	    ]
+		};
+	    
+	  var ctx = document.getElementById("wave-height-chart").getContext("2d");
+		var myBarChart = new Chart(ctx).Bar(swellInfo, {scaleShowGridLines : false, showTooltips : true, barShowStroke : false});
+
+		// });
+	// });
+});
+
+	$.get('http://0.0.0.0:3000/api/county/tide/' + name).done(function(data){
+		var tidesArrayHour = _.pluck(data, 'hour');
+		var tidesArrayHeight = _.pluck(data, 'tide');
+		// console.log('the tides at', name, 'is', tidesArrayHeight);
+		// console.log('the tides at', name, 'is', tidesArrayHour);
+
+			var data = {
+	    labels: tidesArrayHour,
+	    datasets: [
+	        {
+	            label: "My First dataset",
+	            fillColor: "rgba(220,220,220,0.2)",
+	            strokeColor: "rgba(220,220,220,1)",
+	            pointColor: "rgba(220,220,220,1)",
+	            pointStrokeColor: "#fff",
+	            pointHighlightFill: "#fff",
+	            pointHighlightStroke: "rgba(220,220,220,1)",
+	            data: tidesArrayHeight
+	        }
+	    ]
+		};
+	    
+	  var ctx = document.getElementById("tide-chart").getContext("2d");
+		var myLineChart = new Chart(ctx).Line(data, {showTooltips : true});
+
+	})
+});
+
+
+
+
 },
 
 googleMaps: function(){
@@ -330,11 +432,12 @@ var PostsView = Parse.View.extend({
 	},
 
 	initialize: function() {
-		$('.container').append(this.el);
+		$('.posts-container').append(this.el);
 		this.render();
 	},
 
 	render: function(){
+		// console.log('PostsView this.model is', this.model)
     renderTemplate = this.template(this.model.attributes);
 		this.$el.html(renderTemplate)
 		return this;
