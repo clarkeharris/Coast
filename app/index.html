@@ -35,27 +35,152 @@
 
         <div class="container"></div>
 <!--             <img class="map-container" src="images/ajax-loader.gif">
- -->
-        </div>
+ --> 
 
         <div class="posts-container"></div>
 
-        <!-- Homepage View -->
+<!-- Homepage View -->
+
         <script type="text/template" class="home-view-template">
-            <div class="header">
-
-            <div class="logo"></div>
-            <button class="login-button">Login</button>
             
+            <nav>
+              <div class="logo"></div>
 
-            <h1>Surf forecasts from buoys and your boys.</h1>
+              <button class="direct-to-login-button">Login</button>
+              
+            </nav>
+
+            <div class="header-home">
+
+            <h1>Surf Reports</h1>
+            <h3>From our buoys and your boys</h3>
             <button class="sign-up-button">Sign Up</button>
             <div class="down-pointer"></div>
-      <div class="welcome-filler"></div>
+            <div class="welcome-filler"></div>
+
+            <!-- Paper Splash -->
+
+            <canvas id="canvas" resize hidpi="off"></canvas>
+
+            <script type="text/paperscript" canvas="canvas">
+              // Code ported to Paper.js from http://the389.com/9/1/
+              // with permission.
+
+              var values = {
+                friction: 0.8,
+                timeStep: 0.01,
+                amount: 15,
+                mass: 2,
+                count: 0
+              };
+              values.invMass = 1 / values.mass;
+
+              var path, springs;
+              var size = view.size * [1.2, 1];
+
+              var Spring = function(a, b, strength, restLength) {
+                this.a = a;
+                this.b = b;
+                this.restLength = restLength || 80;
+                this.strength = strength ? strength : 0.55;
+                this.mamb = values.invMass * values.invMass;
+              };
+
+              Spring.prototype.update = function() {
+                var delta = this.b - this.a;
+                var dist = delta.length;
+                var normDistStrength = (dist - this.restLength) /
+                    (dist * this.mamb) * this.strength;
+                delta.y *= normDistStrength * values.invMass * 0.2;
+                if (!this.a.fixed)
+                  this.a.y += delta.y;
+                if (!this.b.fixed)
+                  this.b.y -= delta.y;
+              };
+
+
+              function createPath(strength) {
+                var path = new Path({
+                  fillColor: 'rgba(7,60,96,0.75)'
+                });
+                springs = [];
+                for (var i = 0; i <= values.amount; i++) {
+                  var segment = path.add(new Point(i / values.amount, 0.5) * size);
+                  var point = segment.point;
+                  if (i == 0 || i == values.amount)
+                    point.y += size.height;
+                  point.px = point.x;
+                  point.py = point.y;
+                  // The first two and last two points are fixed:
+                  point.fixed = i < 2 || i > values.amount - 2;
+                  if (i > 0) {
+                    var spring = new Spring(segment.previous.point, point, strength);
+                    springs.push(spring);
+                  }
+                }
+                path.position.x -= size.width / 4;
+                return path;
+              }
+
+              function onResize() {
+                if (path)
+                  path.remove();
+                size = view.bounds.size * [2, 1];
+                path = createPath(0.1);
+              }
+
+              function onMouseMove(event) {
+                var location = path.getNearestLocation(event.point);
+                var segment = location.segment;
+                var point = segment.point;
+
+                if (!point.fixed && location.distance < size.height / 4) {
+                  var y = event.point.y;
+                  point.y += (y - point.y) / 6;
+                  if (segment.previous && !segment.previous.fixed) {
+                    var previous = segment.previous.point;
+                    previous.y += (y - previous.y) / 24;
+                  }
+                  if (segment.next && !segment.next.fixed) {
+                    var next = segment.next.point;
+                    next.y += (y - next.y) / 24;
+                  }
+                }
+              }
+
+              function onFrame(event) {
+                updateWave(path);
+              }
+
+              function updateWave(path) {
+                var force = 1 - values.friction * values.timeStep * values.timeStep;
+                for (var i = 0, l = path.segments.length; i < l; i++) {
+                  var point = path.segments[i].point;
+                  var dy = (point.y - point.py) * force;
+                  point.py = point.y;
+                  point.y = Math.max(point.y + dy, 0);
+                }
+
+                for (var j = 0, l = springs.length; j < l; j++) {
+                  springs[j].update();
+                }
+                path.smooth();
+              }
+
+              function onKeyDown(event) {
+                if (event.key == 'space') {
+                  path.fullySelected = !path.fullySelected;
+                  path.fillColor = path.fullySelected ? null : 'black';
+                }
+              }
+            </script>
+
+    <!-- End Paper Splash -->
             
         </script>
         
-        <!-- Login View -->
+<!-- Login View -->
+
         <script type="text/template" class="login-view-template">
             <div class="login-sign-up-container">
                 <a class="logo" href="#"></a>
@@ -66,7 +191,7 @@
             </div>
         </script>
 
-        <!--Sign Up View -->
+<!--Sign Up View -->
 
           <script type="text/template" class="sign-up-view-template">
             <div class="login-sign-up-container">
@@ -94,8 +219,8 @@
             <div class="header-overlay"></div>
                 
                 <p class="date">July 12, 2014</p>
-                <h1 class="forecast-location"> Santa Cruz </h1>
-                <p class="water-temp">Water Temperature: 57F</p>
+                <h1 class="forecast-location"></h1>
+                <p class="water-temp"></p>
 
                 <div class="search-row">
                   <div class="search-box">
@@ -185,7 +310,7 @@
 
         <div class="tides item">
           <h3>Tides</h3>
-          <canvas id="tide-chart" width="560" height="100"></canvas>
+          <canvas id="tide-chart" width="750px" height="50"></canvas>
         </div>
 
         <div id="map-canvas"></div>
@@ -197,6 +322,8 @@
       </div>
 
         </script>
+
+<!-- Posts View  -->
 
          <script type="text/template" class="posts-view-template">
           
@@ -229,6 +356,7 @@
         <script src="../bower_components/masonry/masonry.js"></script>
         <script src="../bower_components/imagesloaded/imagesloaded.js"></script>
         <script src="../bower_components/chartjs/Chart.min.js"></script>
+        <script src="../bower_components/paper/paper-full.min.js"></script>
         <!-- endbower -->
         <!-- endbuild -->
 

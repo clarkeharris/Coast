@@ -18,6 +18,7 @@ var AppRouter = Backbone.Router.extend({
 
 	homePage: function() {
 		$('.container').html('')
+		$('.posts-container').html('')
 		new HomeView();
 	},
 
@@ -27,19 +28,21 @@ var AppRouter = Backbone.Router.extend({
 
 	loginPage: function(){
 		$('.container').html('')
+		$('.posts-container').html('')
 		new LoginView();
 	},
 
 	signUpPage: function(){
 		$('.container').html('')
+		$('.posts-container').html('')
 		new SignUpView();
 	},
 
 	dashboardPage: function() {
 		console.log()
 		$('.container').html('')
+		// $('.posts-container').html('')
 		new DashboardView({model: Parse.User.current()});
-		
 	}
 
 

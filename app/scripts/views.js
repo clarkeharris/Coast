@@ -16,7 +16,7 @@ var AppView = Parse.View.extend({
 			imagesLoaded(document.querySelectorAll('.posts-view'), function() {
 				var msnry = new Masonry($('.posts-container')[0], {
 					// options
-					columnWidth: 320,
+					columnWidth: 0,
 					itemSelector: '.posts-view'
 				});
 
@@ -46,7 +46,7 @@ var HomeView = Parse.View.extend({
 	template: _.template($('.home-view-template').text()),
 
 	events: {
-		"click .login-button": "login",
+		"click .direct-to-login-button": "login",
 		"click .sign-up-button": "signUp"
 	},
 
@@ -54,6 +54,7 @@ var HomeView = Parse.View.extend({
 		console.log('initid')
 		$('.container').prepend(this.el);
 		this.render();
+		$( ".posts-container" ).hide()
 	},
 
 	render: function() {
@@ -173,7 +174,7 @@ var DashboardView = Parse.View.extend({
 		"click .upload-button": "uploadPhoto",
 		"click .logout-button": "logOut",
 		"click .upload-feature": "uploadFeature",
-		"change .search-container": "forecastName"
+		"click .search": "forecastName"
 	},
 
 	initialize: function() {
@@ -240,16 +241,21 @@ var DashboardView = Parse.View.extend({
 				var pointPromise = Parse.GeoPoint.current()
 				console.log(pointPromise)
 				pointPromise.done(function(latlong) {
+
 					console.log('latlong', latlong)
 					console.log(latlong.latitude)
 					console.log(latlong.longitude)
+					
 					var point = new Parse.GeoPoint({
+						
 						latitude: latlong.latitude,
 						longitude: latlong.longitude
 					})
 					console.log(point)
+
 					uploadPhoto.set('location', point)
 					uploadPhoto.save().done(function() {
+						
 						Parse.User.current().relation('posts').add(uploadPhoto);
 						Parse.User.current().save();
 					})
@@ -257,6 +263,7 @@ var DashboardView = Parse.View.extend({
 			} else {
 				console.log("un-checked")
 				uploadPhoto.save().done(function() {
+
 					Parse.User.current().relation('posts').add(uploadPhoto);
 					Parse.User.current().save();
 				})
@@ -264,8 +271,6 @@ var DashboardView = Parse.View.extend({
 			}
 
 			app.collection.add(uploadPhoto)
-
-
 
 			// if you wanna fetch current user's posts later, it's
 			// Parse.User.current().relation('posts').query().find().done(function(postsList){
@@ -276,23 +281,18 @@ var DashboardView = Parse.View.extend({
 		})
 
 	},
+
 	forecastName: function() {
 		console.log('running forecastName')
 
 		var surfSpot = new SpotsCollection();
 
-		surfSpot.url = 'http://0.0.0.0:3000/api/spot/all';
-		// $.get('http://0.0.0.0:3000/api/spot/all')
-		// surfSpot.fetch();
-		var spotNames = _.pluck(surfSpot, "spot_name")
-
-		// 
-
 		var name = $('.search-region').val().replace(' ', '-').replace(',', '').toLowerCase();
 
 		$.get('http://0.0.0.0:3000/api/county/water-temperature/' + name).done(function(tempData) {
 			console.log('the water temperature for', name, 'is', tempData.fahrenheit)
-
+			$('.forecast-location').append(tempData.county)
+			$('.water-temp').append('Water Temperature:' + ' ' + tempData.fahrenheit)
 		});
 
 		$.get('http://0.0.0.0:3000/api/county/wind/' + name).done(function(data) {
@@ -370,8 +370,6 @@ var DashboardView = Parse.View.extend({
 
 		})
 
-
-
 	},
 
 	googleMaps: function() {
@@ -393,45 +391,6 @@ var DashboardView = Parse.View.extend({
 		google.maps.event.addDomListener(window, 'load', initialize);
 
 	}
-	// }
-
-	// map: function() {
-	// 	console.log('wow!')
-	// 	geoPromise = Parse.GeoPoint.current()
-	// 	console.log(geoPromise);
-
-	// 	geoPromise.done(function(latlong){
-	// 		console.log(latlong)
-
-
-
-	// 		var baseUrl = "http://maps.googleapis.com/maps/api/staticmap?zoom=13&size=640x250&center=" + latlong.latitude + ',' + latlong.longitude 
-	// 		console.log(baseUrl)
-	// 		var counter = 0
-
-	// 		console.log(postsCollection)
-
-	// 		app.fetchPromise.done(function () {
-
-	// 			if (app.collection.length > 0){
-
-	// 				app.collection.each(function(post){
-	// 					if (post.get('location')) {
-	// 						baseUrl += "&markers=color:" + '0x'+Math.floor(Math.random()*16777215).toString(16) + "%7Clabel:"+ "COOL" +"%7C" + post.get('location').latitude + ',' + post.get('location').longitude
-	// 					}
-
-
-	// 					if (post === app.collection.last()) {
-	// 						console.log('baseUrl is',baseUrl)
-	// 						$('.map-container').attr('src', baseUrl);
-	// 					}
-	// 				})
-	// 			} else {
-	// 				$('.container').append('<img src="'+ baseUrl +'"/>')
-	// 			}
-	// 		})
-	// 	})
-
 	// }
 
 });

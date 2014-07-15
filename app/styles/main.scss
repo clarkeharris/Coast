@@ -15,14 +15,6 @@ body {
     height: 100%;
 }
 
-// canvas {
-//     position: absolute;
-//     width: 100%;
-//     height: 75%;
-//     bottom: 0;
-//     z-index: -9999;
-// }
-
 img {
     max-width:100;
 }
@@ -71,6 +63,70 @@ input {
     width: 100%;
     margin: 0 auto;
 }
+
+// Start Home Page 
+
+.header-home {
+  position: relative;
+  width: 100%;
+  height: 580px;
+  padding-top: 100px;
+
+  background:
+    // linear-gradient(
+    //   rgba(37, 62, 95, 0.75), 
+    //   rgba(37, 62, 95, 0.75)
+    // ),
+     url('../images/coast-header-2.jpg') no-repeat;
+     z-index: 1;
+
+  .sign-up-button {
+    display: block;
+    margin: 0 auto;
+    background: #fb4349;
+    border-radius: 1px;
+    z-index: 10;
+  }
+
+  canvas {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    bottom: 0;
+    z-index: -10;
+  }
+
+  h1 {
+    font-weight: 700;
+    text-align: center;
+    color: #fff;
+    padding: 0;
+    margin: 0;
+  }
+
+  h2 {
+    font-size: 3.6em;
+    font-weight: 400;
+    color: #fff;
+  }
+
+  h3 {
+    color: #fff;
+    text-align: center;
+    margin: 1em 0 0.25em 0;
+  }
+
+  p {
+    margin: 0 0;
+    padding: 0 0;
+    font-size: 1.2em;
+    letter-spacing: 0.05em;
+    color: #dfdfd5;
+    font-weight: 400;
+  }
+}
+
+// End Home Page
 
 .login-sign-up-container {
     width: 300px;
@@ -197,6 +253,24 @@ nav {
       border-radius: 50%;
       margin: 15px 2% 0 0;
       max-width: 100%;
+  }
+
+  .direct-to-login-button {
+    float: right;
+    margin: 30px 4% 0 0%;
+    border: 1px solid #073c60;
+    border-radius: 1px;
+    background: #fff;
+
+    &:active {
+
+      // transition: background 0.2s;
+      // background: #073c60;
+      margin: 32px 4% 0 0%;
+      // color: #fff;
+
+
+    }
   }
 
    .logout-button {
@@ -518,7 +592,7 @@ nav {
   // clear: left;
   // float: left; 
   width: 15%;
-  height: 527px; 
+  height: 390px; 
   margin: 0 0 0.25% 0.5%;
   background: #fb4349;
   margin-left: 0.5%;
@@ -526,7 +600,7 @@ nav {
 }
 
 .tides {
-  width: 45.5%;
+  width: 61.5%;
   height: 90px; 
   padding: 0 0 35px 4%;
   margin: 0.5% 0.5% 0.25% 0;
@@ -561,10 +635,12 @@ nav {
 }
 
 .posts-view {
-  width: 310px;
+  width: 320px;
+  margin-bottom: 10px;
 }
 
 .user-posts {
+  
 
   &:hover .post-info{
     display: block;
