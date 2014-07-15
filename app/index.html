@@ -9,7 +9,6 @@
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <!-- build:css styles/vendor.css -->
         <!-- bower:css -->
-
         <!-- endbower -->
         <!-- endbuild -->
         <!-- build:css(.tmp) styles/main.css -->
@@ -101,7 +100,7 @@
                 <div class="search-row">
                   <div class="search-box">
                       <h2>Search</h2>
-                      <input type="text" placeholder="Santa Cruz" class="search-region">
+                      <input type="text" value="Sonoma" autofocus class="search-region">
                       <button class="search">Check it</button>
                   </div>
   
@@ -177,7 +176,7 @@
 
         <div class="wave-height item">
           <h3>Wave Height</h3>
-          <canvas id="wave-height-chart" width="600" height="400"></canvas>
+          <canvas id="wave-height-chart" width="535px" height="275px"></canvas>
         </div>
 
         <div class="wind item">
@@ -209,7 +208,7 @@
                 <p class="post-wind-direction">Wind Direction: <%= wind_direction %> </p>
                 <p class="post-tide">Tide: <%= tide %> </p>
                 <p class="post-crowd">Crowd: <%= crowd %> </p>
-                </div>
+              </div>
             </div>
          </script>
 
@@ -218,9 +217,18 @@
         <script src="../bower_components/jquery/dist/jquery.js"></script>
         <script src="../bower_components/underscore/underscore.js"></script>
         <script src="../bower_components/backbone/backbone.js"></script>
-        <script src="../bower_components/chartjs/Chart.js"></script>
-        <script src="../bower_components/paper/paper-full.min.js"></script>
+        <script src="../bower_components/get-style-property/get-style-property.js"></script>
+        <script src="../bower_components/get-size/get-size.js"></script>
+        <script src="../bower_components/eventie/eventie.js"></script>
+        <script src="../bower_components/doc-ready/doc-ready.js"></script>
+        <script src="../bower_components/eventEmitter/EventEmitter.js"></script>
+        <script src="../bower_components/jquery-bridget/jquery.bridget.js"></script>
+        <script src="../bower_components/matches-selector/matches-selector.js"></script>
+        <script src="../bower_components/outlayer/item.js"></script>
+        <script src="../bower_components/outlayer/outlayer.js"></script>
+        <script src="../bower_components/masonry/masonry.js"></script>
         <script src="../bower_components/imagesloaded/imagesloaded.js"></script>
+        <script src="../bower_components/chartjs/Chart.min.js"></script>
         <!-- endbower -->
         <!-- endbuild -->
 

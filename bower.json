@@ -7,7 +7,7 @@
     "backbone": "~1.1.2",
     "masonry": "~3.1.5",
     "imagesloaded": "~3.1.8",
-    "chartjs": "~0.2.0"
+    "chartjs": "1.0.1-beta.2"
   },
   "devDependencies": {}
 }

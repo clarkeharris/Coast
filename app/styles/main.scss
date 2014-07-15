@@ -561,7 +561,14 @@ nav {
 }
 
 .posts-view {
-  width: 290px;
+  width: 310px;
+}
+
+.user-posts {
+
+  &:hover .post-info{
+    display: block;
+  }
 
 }
 
