@@ -11,16 +11,7 @@ $(document).ready(function() {
     });
   });
 });
-
-
-$('.county-name').blur(function(){
-	var name = $(this).val();
-
-	$.get('http://0.0.0.0:3000/api/county/wind/' + name).done(function(data){
-		console.log('wind speeds for', name, 'are', _.pluck(data, 'speed_mph'))
-	});
-})
-		
+	
 
 // // If User is not logged in
 

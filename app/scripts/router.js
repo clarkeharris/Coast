@@ -22,10 +22,6 @@ var AppRouter = Backbone.Router.extend({
 		new HomeView();
 	},
 
-	dashboard: function() {
-		console.log('hi')
-	},
-
 	loginPage: function(){
 		$('.container').html('')
 		$('.posts-container').html('')
@@ -39,9 +35,7 @@ var AppRouter = Backbone.Router.extend({
 	},
 
 	dashboardPage: function() {
-		console.log()
 		$('.container').html('')
-		// $('.posts-container').html('')
 		new DashboardView({model: Parse.User.current()});
 	}
 

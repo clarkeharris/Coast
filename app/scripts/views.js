@@ -2,38 +2,7 @@ console.log('views loaded')
 
 var AppView = Parse.View.extend({
 
-	className: "post-view",
-
-	initialize: function() {
-		this.collection = new PostsCollection();
-		this.collection.on('add', this.addPost)
-		this.fetchPromise = this.collection.fetch({
-			add: true
-		});
-
-		this.fetchPromise.done(function() {
-			// make sure all of the images are loaded first.
-			imagesLoaded(document.querySelectorAll('.posts-view'), function() {
-				var msnry = new Masonry($('.posts-container')[0], {
-					// options
-					columnWidth: 0,
-					itemSelector: '.posts-view'
-				});
-
-				$('.posts-container').addClass('visible');
-			})
-
-		});
-
-		console.log('fetchPromise is', this.fetchPromise)
-	},
-
-	addPost: function(photo) {
-		// console.log('photo is', photo)
-		new PostsView({
-			model: photo
-		});
-	}
+	className: "post-view"
 
 });
 
@@ -53,8 +22,8 @@ var HomeView = Parse.View.extend({
 	initialize: function() {
 		console.log('initid')
 		$('.container').prepend(this.el);
-		this.render();
 		$( ".posts-container" ).hide()
+		this.render();
 	},
 
 	render: function() {
@@ -63,8 +32,6 @@ var HomeView = Parse.View.extend({
 	},
 
 	login: function() {
-		// $('.log').addClass('slide')
-
 
 		router.navigate('#/login', {
 			trigger: true
@@ -111,7 +78,7 @@ var LoginView = Parse.View.extend({
 				$(".login-username").val('');
 				$(".login-password").val('');
 
-				router.navigate('#/dashboard')
+				router.navigate('dashboard', {trigger: true})
 
 			},
 			error: function(user, error) {
@@ -136,6 +103,7 @@ var SignUpView = Parse.View.extend({
 
 	initialize: function() {
 		$('.container').append(this.el);
+		$( ".posts-container" ).hide()
 		this.render();
 	},
 
@@ -161,8 +129,14 @@ var SignUpView = Parse.View.extend({
 				alert("Error: " + error.code + " " + error.message);
 			}
 		});
+
+		router.navigate('#/dashboard')	
+
 	}
+
 });
+
+var currentPosition = {};
 
 var DashboardView = Parse.View.extend({
 
@@ -180,15 +154,52 @@ var DashboardView = Parse.View.extend({
 	initialize: function() {
 		$('.container').append(this.el);
 		this.render();
-		// this.map();
-		this.googleMaps();
 		this.forecastName();
+		this.googleMaps();
+
+		this.collection = new PostsCollection();
+		this.collection.on('add', this.addPost)
+		this.fetchPromise = this.collection.fetch({
+			add: true
+		});
+
+		this.fetchPromise.done(function() {
+			console.log('DONE!')
+			// make sure all of the images are loaded first.
+			imagesLoaded(document.querySelectorAll('.posts-view'), function() {
+				console.log('IMAGES LOADED!')
+				var msnry = new Masonry($('.posts-container')[0], {
+					// options
+					columnWidth: 0,
+					itemSelector: '.posts-view'
+				});
+
+				$('.posts-container').addClass('visible');
+			})
+
+		});
+
+
+		var msnryGraphs = new Masonry($('#container')[0], {
+			// options
+			columnWidth: 0,
+			itemSelector: '.item'
+		});
+
+		console.log('fetchPromise is', this.fetchPromise)
 	},
 
 	render: function() {
 		this.$el.html(this.template())
 		return this;
 
+	},
+
+	addPost: function(photo) {
+		console.log('photo is', photo)
+		new PostsView({
+			model: photo
+		});
 	},
 
 	logOut: function() {
@@ -285,21 +296,44 @@ var DashboardView = Parse.View.extend({
 	forecastName: function() {
 		console.log('running forecastName')
 
+		var that = this;
+
 		var surfSpot = new SpotsCollection();
 
 		var name = $('.search-region').val().replace(' ', '-').replace(',', '').toLowerCase();
 
 		$.get('http://0.0.0.0:3000/api/county/water-temperature/' + name).done(function(tempData) {
-			console.log('the water temperature for', name, 'is', tempData.fahrenheit)
+			
 			$('.forecast-location').append(tempData.county)
+			
 			$('.water-temp').append('Water Temperature:' + ' ' + tempData.fahrenheit)
 		});
 
 		$.get('http://0.0.0.0:3000/api/county/wind/' + name).done(function(data) {
 			console.log('wind speeds for', name, 'are', _.pluck(data, 'speed_mph'))
+			var windDirections = _.pluck(data, 'direction_text'))
+			
+			windDirections.forEach(function(direction){
+				$('.wind-direction').addClass('wind-'+ direction)
+			})
+		});
+
+		$.get('http://0.0.0.0:3000/api/spot/all').done(function(data) {
+
+			_.each(data, function(item){
+
+					if ( item.county_name.toLowerCase() == name) {
+						currentPosition.longitude = item.longitude;
+						currentPosition.latitude =  item.latitude;
+					}
+			});
+
+			// console.log('the current position', currentPosition.longitude + ' ' + currentPosition.latitude);
+
 		});
 
 		$.get('http://0.0.0.0:3000/api/county/swell/' + name).done(function(data) {
+			
 			_.each(data, function(item) {
 
 				_.each(item, function(subItem) {
@@ -331,8 +365,15 @@ var DashboardView = Parse.View.extend({
 				}]
 			};
 
+			// clear out existing chart
+			if (that.myBarChart) {
+				that.myBarChart.destroy();
+			}
+
 			var ctx = document.getElementById("wave-height-chart").getContext("2d");
-			var myBarChart = new Chart(ctx).Bar(swellInfo, {
+			ctx.canvas.width = $("#wave-height-chart").width();
+			ctx.canvas.height = $("#wave-height-chart").height();
+			that.myBarChart = new Chart(ctx).Bar(swellInfo, {
 				scaleShowGridLines: false,
 				showTooltips: true,
 				barShowStroke: false,
@@ -344,6 +385,10 @@ var DashboardView = Parse.View.extend({
 		$.get('http://0.0.0.0:3000/api/county/tide/' + name).done(function(data) {
 			var tidesArrayHour = _.pluck(data, 'hour');
 			var tidesArrayHeight = _.pluck(data, 'tide');
+			var currentDate = _.pluck(data, 'date')[0];
+
+			$('.date').append(currentDate)
+			
 
 			var data = {
 				labels: tidesArrayHour,
@@ -374,24 +419,50 @@ var DashboardView = Parse.View.extend({
 
 	googleMaps: function() {
 
-		// geoPromise = Parse.GeoPoint.current()
-		// console.log(geoPromise);
 
-		// geoPromise.done(function (latlong){
-		// console.log(latlong)
 
 		function initialize() {
+
+			var name = $('.search-region').val().replace(' ', '-').replace(',', '').toLowerCase();
+
+				$.get('http://0.0.0.0:3000/api/spot/all').done(function(data) {
+					console.log('looking for', name);
+			_.each(data, function(item){
+
+					if ( item.county_name.replace ( '-' , ' ').toLowerCase() == name) {
+						currentPosition.longitude = item.longitude;
+						currentPosition.latitude =  item.latitude;
+					}
+			});
+
+			console.log('the current position', currentPosition.longitude + ' ' + currentPosition.latitude);
+
 			var mapOptions = {
-				center: new google.maps.LatLng(38.683140380050851, -123.4343167105767),
+				center: new google.maps.LatLng(currentPosition.latitude, currentPosition.longitude),
 				zoom: 8
 			};
+			console.log('before map', mapOptions);
+
 			var map = new google.maps.Map(document.getElementById("map-canvas"),
 				mapOptions);
+
+			console.log('after map ', mapOptions);
+
+		});
+
+			var mapOptions = {
+				center: new google.maps.LatLng(currentPosition.latitude, currentPosition.longitude),
+				zoom: 1
+			};
+			console.log(mapOptions);
+			var map = new google.maps.Map(document.getElementById("map-canvas"),
+				mapOptions);
+
 		}
-		google.maps.event.addDomListener(window, 'load', initialize);
+
+		initialize();
 
 	}
-	// }
 
 });
 
