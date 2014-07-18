@@ -97,15 +97,14 @@
           </nav>
           <div class="header">
             <div class="header-overlay"></div>
-                
+                <h2>Forecast Search</h2>
                 <p class="date"></p>
-                <h1 class="forecast-location"></h1>
-                <p class="water-temp"></p>
+                <input type="text" value="Monterey" autofocus class="search-region">
+                <!--<p class="water-temp"></p> -->
 
-                <div class="search-row">
+                <!-- <div class="search-row">
                   <div class="search-box">
                       <h2>Search</h2>
-                      <input type="text" value="Monterey" autofocus class="search-region">
                       <button class="search">Check it</button>
                   </div>
   
@@ -170,11 +169,11 @@
 
             <button class="upload-button">Post</button>
 
-
                   </div>
                 </div>
 
           </div>
+          -->
       </div>
       <div id="container" >
 
@@ -187,17 +186,26 @@
           <h3>Wind</h3>
           <div class="wind-speed"></div>
         </div>
+       
 
         <div class="tides item">
           <h3>Tides</h3>
-          <canvas id="tide-chart" width="725px" height="65px"></canvas>
+          <canvas id="tide-chart"></canvas>
         </div>
 
         <div id="map-canvas"></div>
+        
+        <!--<div class="water-temp item">
+          <h3>Water Temp</h3>
+          <div class="water-temp-fahrenheit"></div>
+          <div class="temp-divider"></div>
+          <div class="water-temp-celcius"></div>
+        </div> -->
 
-        <div class="local-reports item">
+
+        <!-- <div class="local-reports item">
           <h3>Local Reports</h3>
-        </div>
+        </div> -->
 
       </div>
 
@@ -222,7 +230,7 @@
 <!-- Posts View  -->
 
          <script type="text/template" class="posts-view-template">
-            <div class="user-posts">
+            <div class="user-posts posts-view">
               <img src="<%= photoRef.url() %>">
               <div class="post-info">
                 <p class="post-username"> <%= parent %> </p>

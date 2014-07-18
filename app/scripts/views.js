@@ -171,14 +171,13 @@ var DashboardView = Parse.View.extend({
 				var msnry = new Masonry($('.posts-container')[0], {
 					// options
 					columnWidth: 0,
-					itemSelector: '.posts-view'
+					itemSelector: '.user-posts'
 				});
 
 				$('.posts-container').addClass('visible');
 			})
 
 		});
-
 
 		var msnryGraphs = new Masonry($('#container')[0], {
 			// options
@@ -298,15 +297,18 @@ var DashboardView = Parse.View.extend({
 
 		var that = this;
 
-		var surfSpot = new SpotsCollection();
+		// var surfSpot = new SpotsCollection();
+
 		var name = $('.search-region').val().replace(' ', '-').replace(',', '').toLowerCase();
 
 		$.get('http://0.0.0.0:3000/api/county/water-temperature/' + name).done(function(tempData) {
 			$('.forecast-location').html('')
 			$('.forecast-location').append(tempData.county)
 			
-			$('.water-temp').html('')
-			$('.water-temp').append('Water Temperature:' + ' ' + tempData.fahrenheit)
+			$('.water-temp-fahrenheit').html('')
+			$('.water-temp-celcius').html('')
+			$('.water-temp-fahrenheit').append(tempData.fahrenheit + 'F')
+			$('.water-temp-celcius').append(tempData.celcius + 'C')
 		});
 
 		$.get('http://0.0.0.0:3000/api/county/wind/' + name).done(function(data) {
@@ -405,9 +407,8 @@ var DashboardView = Parse.View.extend({
 			}
 
 			var ctx = document.getElementById("wave-height-chart").getContext("2d");
-
 			ctx.canvas.width = 530;
-			ctx.canvas.height = 200;
+			ctx.canvas.height = 150;
 			// ctx.canvas.width = $("#wave-height-chart").width();
 			// ctx.canvas.height = $("#wave-height-chart").height();
 			that.myBarChart = new Chart(ctx).Bar(swellInfo, {
@@ -455,8 +456,10 @@ var DashboardView = Parse.View.extend({
 			}
 
 			var ctx = document.getElementById("tide-chart").getContext("2d");
-			ctx.canvas.width = $("#tide-chart").width();
-			ctx.canvas.height = $("#tide-chart").height();
+			ctx.canvas.width = 505;
+			ctx.canvas.height = 70;
+			// ctx.canvas.width = $("#tide-chart").width();
+			// ctx.canvas.height = $("#tide-chart").height();
 			that.myLineChart = new Chart(ctx).Line(data, {
 				caleShowGridLines: false,
 				showTooltips: true,
