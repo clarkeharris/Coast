@@ -71,8 +71,8 @@ input {
 .header-home {
   position: relative;
   width: 100%;
-  height: 450px;
-  padding-top: 100px;
+  height: 429px;
+  padding-top: 150px;
 
   background:
     // linear-gradient(
@@ -86,7 +86,7 @@ input {
     display: block;
     width: 100px;
     height: 45px;
-    margin: 30px auto;
+    margin: 25px auto;
     background: #fb4349;
     border-radius: 1px;
     z-index: 10;
@@ -158,7 +158,9 @@ input {
         width: 285px;
         height: 35px;
         border-radius: 2px 2px 0 0;
-        background: #dfdfd5;
+        border-top: 1px solid #073c60;
+        border-left: 1px solid #073c60;
+        border-right: 1px solid #073c60;
     }
 
     .login-password {
@@ -168,8 +170,7 @@ input {
         width: 285px;
         height: 35px;
         border-radius: 0 0 2px 2px;
-        border-top: 1px solid #ccc;
-        background: #dfdfd5;
+        border: 1px solid #073c60;
     }
 
      .login-button {
@@ -192,6 +193,7 @@ input {
         width: 290px;
         height: 35px;
         border-radius: 2px;
+        border: 1px solid #073c60;
     }
     
     .sign-up-password{
@@ -201,6 +203,7 @@ input {
         width: 290px;
         height: 35px;
         border-radius: 2px;
+        border: 1px solid #073c60;
     }
     
     .sign-up-email {
@@ -210,6 +213,7 @@ input {
         width: 290px;
         height: 35px;
         border-radius: 2px;
+        border: 1px solid #073c60;
     }
     
     .submit-sign-up-button {
@@ -243,8 +247,8 @@ input {
         text-decoration: none; 
         font-size: 1.2em;
     }
-
 }
+
 nav {
   width: 100%;
   height: 100px;
@@ -593,13 +597,8 @@ nav {
   padding: 0 0 35px 4%;
   margin-right: 0.5%;
   margin-bottom: 0.5%;
-  height: 355px; 
+  height: 275px; 
   background: #dfdfd5;
-
-  canvas {
-    width: 500px;
-    height: 300px; 
-  }
 }
 
 .wind {
@@ -609,6 +608,43 @@ nav {
   background: #fb4349;
   margin-left: 0.5%;
   text-align: center;
+
+  .wind-right {
+    margin: 2px 70px 5px 0;
+    float: right;
+    font-size: 1.4em;
+    opacity: 0;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  .wind-speed {
+    display: block;
+  }
+
+  .wind-left {
+    
+  }
+
+  .triangle {
+    margin: 8px auto;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 5.5px 16px 5.5px;
+    border-color: transparent transparent #fff transparent;
+    opacity: 1;
+
+    &:hover {
+      opacity: 0;
+      // transition: border-color 0.1s;
+      // border-style: solid;
+      // border-width: 0 5.5px 16px 5.5px;
+      // border-color: transparent transparent #3497da transparent; 
+    }
+  }
 }
 
 .tides {
@@ -681,30 +717,39 @@ nav {
   }
 }
 
+.post-username {
+  margin-left: 10px;
+  padding-left: 10px;
+  font-size: 1.8em;
+  font-weight: 700;
+}
+
 .post-wave-height {
   margin-left: 10px;
-  padding-left: 40px;
-  background: url(../images/wave-height.svg) no-repeat center left;
+  padding-left: 10px;
+  // background: url(../images/wave-height.svg) no-repeat center left;
 }
 
 .post-wind-direction {
   height: 20px;
   margin-left: 10px;
-  padding-left: 40px;
-  background: url(../images/wind-direction.svg) no-repeat center left;
+  padding-left: 10px;
+  // background: url(../images/wind-direction.svg) no-repeat center left;
 }
 
 .post-tide {
   padding-left: 15px;
   height: 20px;
   margin-left: 10px;
-  padding-left: 40px;
-  background: url(../images/tides.svg) no-repeat center left;
+  padding-left: 10px;
+  // background: url(../images/tides.svg) no-repeat center left;
 }
+
 .post-crowd {
-  padding-left: 15px;
+  margin-left: 10px;
+  padding-left: 10px;
 }
+
 img {
   max-width: 100%;
 }
-

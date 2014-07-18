@@ -299,22 +299,53 @@ var DashboardView = Parse.View.extend({
 		var that = this;
 
 		var surfSpot = new SpotsCollection();
-
 		var name = $('.search-region').val().replace(' ', '-').replace(',', '').toLowerCase();
 
 		$.get('http://0.0.0.0:3000/api/county/water-temperature/' + name).done(function(tempData) {
-			
+			$('.forecast-location').html('')
 			$('.forecast-location').append(tempData.county)
 			
+			$('.water-temp').html('')
 			$('.water-temp').append('Water Temperature:' + ' ' + tempData.fahrenheit)
 		});
 
 		$.get('http://0.0.0.0:3000/api/county/wind/' + name).done(function(data) {
-			console.log('wind speeds for', name, 'are', _.pluck(data, 'speed_mph'))
-			var windDirections = _.pluck(data, 'direction_text'))
 			
-			windDirections.forEach(function(direction){
-				$('.wind-direction').addClass('wind-'+ direction)
+			var windDegrees = _.pluck(data, 'direction_degrees')
+
+			//
+					var windSpeed = _.pluck(data, 'speed_mph')
+					
+					var evenWindSpeed = _.filter(windSpeed, function(num, index){ return index % 2 == 0; });
+					
+					var roundedWindSpeed = evenWindSpeed.map(Math.round);
+					
+					console.log(roundedWindSpeed);
+
+					roundedWindSpeed.forEach(function(speed){
+				var windSp = {
+					windSpeedMph: speed
+				}
+
+				var template = _.template($('.wind-speed-template').text());
+				var renderedTemplate = template(windSp)
+				$('.wind').append(renderedTemplate)
+
+			})
+
+			//
+				
+				var evenWindDegrees = _.filter(windDegrees, function(num, index){ return index % 2 == 0; });
+
+			evenWindDegrees.forEach(function(direction){
+				var windOb = {
+					windDirection: direction
+				}
+
+				var template = _.template($('.arrow-template').text());
+				var renderedTemplate = template(windOb)
+				$('.wind').append(renderedTemplate)
+
 			})
 		});
 
@@ -345,9 +376,12 @@ var DashboardView = Parse.View.extend({
 		$.get('http://0.0.0.0:3000/api/county/swell/' + name).done(function(data) {
 			var swellChartLabels = [];
 			var swellChartData = [];
+			
 			_.each(data, function(item) {
-				swellChartLabels.push(item.date);
+				swellChartLabels.push(item.hour);
+				swellChartData.map(Math.round);
 				swellChartData.push(item.hst * 3);
+			
 			});
 
 			var swellInfo = {
@@ -365,14 +399,17 @@ var DashboardView = Parse.View.extend({
 				}]
 			};
 
-			// clear out existing chart
+			// clear out existing bar chart
 			if (that.myBarChart) {
 				that.myBarChart.destroy();
 			}
 
 			var ctx = document.getElementById("wave-height-chart").getContext("2d");
-			ctx.canvas.width = $("#wave-height-chart").width();
-			ctx.canvas.height = $("#wave-height-chart").height();
+
+			ctx.canvas.width = 530;
+			ctx.canvas.height = 200;
+			// ctx.canvas.width = $("#wave-height-chart").width();
+			// ctx.canvas.height = $("#wave-height-chart").height();
 			that.myBarChart = new Chart(ctx).Bar(swellInfo, {
 				scaleShowGridLines: false,
 				showTooltips: true,
@@ -385,27 +422,42 @@ var DashboardView = Parse.View.extend({
 		$.get('http://0.0.0.0:3000/api/county/tide/' + name).done(function(data) {
 			var tidesArrayHour = _.pluck(data, 'hour');
 			var tidesArrayHeight = _.pluck(data, 'tide');
+			console.log(tidesArrayHeight)
+
+			var evenTidesHour = _.filter(tidesArrayHour, function(num, index){ return index % 2 == 0; });
+
+			var evenTides = _.filter(tidesArrayHeight, function(num, index){ return index % 2 == 0; });
+				var roundedTides = evenTides.map(Math.round);
+
 			var currentDate = _.pluck(data, 'date')[0];
 
+			$('.date').html('')
 			$('.date').append(currentDate)
 			
 
 			var data = {
-				labels: tidesArrayHour,
+				labels: evenTidesHour,
 				datasets: [{
-					label: "My First dataset",
+					label: "Tides",
 					fillColor: "rgba(220,220,220,0.0)",
 					strokeColor: "rgba(255,255,255,1)",
 					pointColor: "rgba(220,220,220,1)",
 					pointStrokeColor: "rgba(220,220,220,0.0)",
 					pointHighlightFill: "rgba(251,61,73,1)",
 					pointHighlightStroke: "rgba(220,220,220,0.0)",
-					data: tidesArrayHeight
+					data: roundedTides
 				}]
 			};
 
+			// clear out existing line chart
+			if (that.myLineChart) {
+				that.myLineChart.destroy();
+			}
+
 			var ctx = document.getElementById("tide-chart").getContext("2d");
-			var myLineChart = new Chart(ctx).Line(data, {
+			ctx.canvas.width = $("#tide-chart").width();
+			ctx.canvas.height = $("#tide-chart").height();
+			that.myLineChart = new Chart(ctx).Line(data, {
 				caleShowGridLines: false,
 				showTooltips: true,
 				barShowStroke: false,
@@ -418,8 +470,6 @@ var DashboardView = Parse.View.extend({
 	},
 
 	googleMaps: function() {
-
-
 
 		function initialize() {
 

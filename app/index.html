@@ -180,16 +180,17 @@
 
         <div class="wave-height item">
           <h3>Wave Height</h3>
-          <canvas id="wave-height-chart" width="535px" height="275px"></canvas>
+          <canvas id="wave-height-chart"></canvas>
         </div>
 
         <div class="wind item">
           <h3>Wind</h3>
+          <div class="wind-speed"></div>
         </div>
 
         <div class="tides item">
           <h3>Tides</h3>
-          <canvas id="tide-chart" width="750px" height="65px"></canvas>
+          <canvas id="tide-chart" width="725px" height="65px"></canvas>
         </div>
 
         <div id="map-canvas"></div>
@@ -201,6 +202,22 @@
       </div>
 
         </script>
+
+            <!-- <img src="../images/n-pointer.svg" style="-webkit-transform: rotate(<%=windDirection%>deg);"> -->
+
+        <script type="text/template" class="arrow-template">
+          <div class="wind-left">
+            <div class="triangle" style="-webkit-transform: rotate(<%=windDirection%>deg);"></div>
+          </div>
+        </script>
+
+        <script type="text/template" class="wind-speed-template">
+            <div class="wind-right">
+              <div class="wind-speed"> <%= windSpeedMph %> MPH </div>
+            </div>
+        </script>
+
+
 
 <!-- Posts View  -->
 
