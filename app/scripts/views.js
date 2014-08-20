@@ -419,6 +419,7 @@ var DashboardView = Parse.View.extend({
 			});
 		});
 
+
 		$.get('http://0.0.0.0:3000/api/county/tide/' + name).done(function(data) {
 			var tidesArrayHour = _.pluck(data, 'hour');
 			var tidesArrayHeight = _.pluck(data, 'tide');
