@@ -53,6 +53,10 @@ input {
     font-size: 1.8em;
     border: none;
     color: #073c60; 
+    &:focus,
+    &:active {
+      outline: none;
+    }
   }
 
 .logo {
@@ -71,7 +75,7 @@ input {
 .header-home {
   position: relative;
   width: 100%;
-  height: 429px;
+  height: 454px;
   padding-top: 150px;
 
   background:
@@ -251,17 +255,17 @@ input {
 
 nav {
   width: 100%;
-  height: 100px;
+  height: 75px;
 
   .logo {
           float: left;
-          margin: 30px 0 0 4%;
+          margin: 23px 0 0 4%;
   }
 
   .welcome-username {
       float: right;
       font-size: 1.6em;
-      margin: 37px 1% 0 0;
+      margin: 27px 1% 0 0;
   }
 
   .avatar {
@@ -275,7 +279,7 @@ nav {
 
   .direct-to-login-button {
     float: right;
-    margin: 30px 4% 0 0%;
+    margin: 24px 4% 0 0%;
     border: 1px solid #073c60;
     border-radius: 1px;
     background: #fff;
@@ -284,7 +288,7 @@ nav {
 
       // transition: background 0.2s;
       // background: #073c60;
-      margin: 32px 4% 0 0%;
+      margin: 25px 4% 0 0%;
       // color: #fff;
 
 
@@ -293,7 +297,7 @@ nav {
 
    .logout-button {
       float: right;
-      margin: 37px 4% 0 0%;
+      margin: 27px 4% 0 0%;
       width: 25px;
       height: 25px;
       background: url('../images/logout.svg') no-repeat;
@@ -305,7 +309,7 @@ nav {
 .header {
   position: relative;
   width: 92%;
-  height: 500px;
+  height: 400px;
   padding: 0 4% 0 4%;
   background:
     linear-gradient(
@@ -339,7 +343,7 @@ nav {
     }
 
     .date {
-      padding-top: 117px;
+      padding-top: 75px;
       font-size: 1.8em;
       color: #fb4349;
       text-transform: uppercase;
@@ -363,7 +367,7 @@ nav {
       .search-box {
         float: left;
         width: 220px;
-        height: 140px;
+        height: 110px;
         padding: 0 30px 30px 30px;
         border-left: 1px solid #fff;
         border-top: 1px solid #fff;
@@ -372,7 +376,7 @@ nav {
 
       .search-region {
         position: absolute;
-        bottom: 60px;
+        bottom: 20px;
         width: 201px;
         border-bottom: 1px solid #fff;
         color: #fff;
@@ -380,19 +384,19 @@ nav {
         background: url(../images/search.svg) no-repeat right center;        
       }
 
-      .search {
-        position: absolute;
-        bottom: 20px;
-        background: none;
-        border: 1px solid #fb4349;
-        border-radius: 1px;
-        color: #fff;
-      }
+      // .search {
+      //   position: absolute;
+      //   bottom: 20px;
+      //   background: none;
+      //   border: 1px solid #fb4349;
+      //   border-radius: 1px;
+      //   color: #fff;
+      // }
 
       .upload-feature {
         position: relative;
         float: left;
-        height: 171px;
+        height: 141px;
         padding: 20px 20px;
         text-align: center;
         text-transform: uppercase;
@@ -405,9 +409,9 @@ nav {
       .slide .inner {
         position: absolute;
         left: 0;
-        bottom: 0;
+        bottom: 0px;
         width: 560px;
-        height: 141px;
+        height: 111px;
         padding: 15px 0 15px 60px;
         background-color: #fff;
         color: #333;
@@ -417,7 +421,7 @@ nav {
       position: relative;
       float: left;
       overflow: hidden;
-      height: 171px;
+      height: 141px;
       width: 620px;
       }
 
@@ -432,6 +436,7 @@ nav {
 
       .file-uploader::-webkit-file-upload-button {
         visibility: hidden;
+
       }
 
       .file-uploader::before {
@@ -450,6 +455,7 @@ nav {
 
       .file-uploader:hover::before {
         background: #fb4349;
+        color: white;
       }
 
       .file-uploader:active {
@@ -595,53 +601,71 @@ nav {
   width: 45.5%;
   height: 354px;
   padding: 0 0 35px 4%;
+<<<<<<< HEAD
   margin-right: 0.5%;
   margin-bottom: 0.5%;
+=======
+  margin-right: 0.25%;
+  margin-bottom: 0.25%;
+>>>>>>> final-countdown
   background: #dfdfd5;
 }
 
 .wind {
   width: 15%;
   height: 390px; 
-  margin: 0 0 0.25% 0.5%;
+  margin: 0 0 0.25% 0.25%;
   background: #fb4349;
   margin-left: 0.5%;
   text-align: center;
 
   .wind-right {
-    margin: 2px 70px 5px 0;
+    margin: 2px 30px 5px 0;
+    padding-left: 30px;
+    color: #fff;
     float: right;
     font-size: 1.4em;
     opacity: 0;
 
-    &:hover {
-      opacity: 1;
-    }
   }
 
+  .wind-time{
+    float: left;
+    font-size: 1.4em;
+    margin-left: 35px;
+    opacity: 0;
+  }
+  .wind-hour{
+    color: #fff;
+  }
   .wind-speed {
-    display: block;
+    color: #fff;
+  }
+
+  .wind-center {
+    float: left;
+    margin: 8px 50px 8px 0;
   }
 
   .wind-left {
-    
+  // margin-left: 60px;
+  margin: 0 auto;
+  width: 16px;
   }
 
   .triangle {
-    margin: 8px auto;
+    margin: 8px 0 8px 0;
     width: 0;
     height: 0;
     border-style: solid;
     border-width: 0 5.5px 16px 5.5px;
     border-color: transparent transparent #fff transparent;
-    opacity: 1;
 
     &:hover {
-      opacity: 0;
-      // transition: border-color 0.1s;
-      // border-style: solid;
-      // border-width: 0 5.5px 16px 5.5px;
-      // border-color: transparent transparent #3497da transparent; 
+      transition: border-color 0.1s;
+      border-style: solid;
+      border-width: 0 5.5px 16px 5.5px;
+      border-color: transparent transparent #3497da transparent; 
     }
   }
 }
@@ -650,15 +674,15 @@ nav {
   width: 61.5%;
   height: 120px; 
   padding: 0 0 35px 4%;
-  margin: 0.5% 0.5% 0.25% 0;
+  margin: 0.25% 0.25% 0.25% 0;
   background: #253e5f;
   color: #fff;
 }
 
 #map-canvas {
   float: right;
-  width: 33.75%;
-  height: 557px;
+  width: 34%;
+  height: 551px;
 }
 
 .local-reports {
@@ -666,7 +690,7 @@ nav {
   float: left;
   clear: left;
   width: 96%;
-  margin: 0.75% 0 0.75% 0;
+  margin: 0.25% 0 0.5% 0;
   padding: 5px 0 5px 4%;
   background: #5f95d6;
   color: #fff;
@@ -747,6 +771,7 @@ nav {
 .post-crowd {
   margin-left: 10px;
   padding-left: 10px;
+  // background: url(../images/crowd.svg) no-repeat center left;
 }
 
 img {
