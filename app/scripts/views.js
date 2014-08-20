@@ -407,7 +407,7 @@ var DashboardView = Parse.View.extend({
 			var ctx = document.getElementById("wave-height-chart").getContext("2d");
 
 			ctx.canvas.width = 530;
-			ctx.canvas.height = 200;
+			ctx.canvas.height = 320;
 			// ctx.canvas.width = $("#wave-height-chart").width();
 			// ctx.canvas.height = $("#wave-height-chart").height();
 			that.myBarChart = new Chart(ctx).Bar(swellInfo, {
