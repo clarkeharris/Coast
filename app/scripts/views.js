@@ -1,5 +1,3 @@
-console.log('views loaded')
-
 var AppView = Parse.View.extend({
 
 	className: "post-view"
@@ -20,7 +18,7 @@ var HomeView = Parse.View.extend({
 	},
 
 	initialize: function() {
-		console.log('initid')
+
 		$('.container').prepend(this.el);
 		$( ".posts-container" ).hide()
 		this.render();
@@ -74,15 +72,16 @@ var LoginView = Parse.View.extend({
 
 		Parse.User.logIn($('.login-username').val(), $('.login-password').val(), {
 			success: function(user) {
-				console.log('Succesfully logged in!')
 				$(".login-username").val('');
 				$(".login-password").val('');
 
-				router.navigate('dashboard', {trigger: true})
+				router.navigate('dashboard', {
+					trigger: true
+				})
 
 			},
 			error: function(user, error) {
-				console.log('Login failed')
+		
 			}
 
 		});
@@ -122,15 +121,16 @@ var SignUpView = Parse.View.extend({
 
 		user.signUp(null, {
 			success: function(user) {
-				console.log('Succesfully created a new user!')
+		
+			router.navigate('#/dashboard', {
+				trigger: true
+			})
+			
 			},
 			error: function(user, error) {
-				console.log('No user was created')
 				alert("Error: " + error.code + " " + error.message);
 			}
 		});
-
-		router.navigate('#/dashboard')	
 
 	}
 
@@ -155,7 +155,7 @@ var DashboardView = Parse.View.extend({
 		$('.container').append(this.el);
 		this.render();
 		this.forecastName();
-		this.googleMaps();
+		// this.googleMaps();
 
 		this.collection = new PostsCollection();
 		this.collection.on('add', this.addPost)
@@ -163,11 +163,16 @@ var DashboardView = Parse.View.extend({
 			add: true
 		});
 
+		$('.search-region').keydown(function (key) {
+			if(key.which === 13) {
+				$('.search').click();
+			}
+		})
+
+
 		this.fetchPromise.done(function() {
-			console.log('DONE!')
 			// make sure all of the images are loaded first.
 			imagesLoaded(document.querySelectorAll('.posts-view'), function() {
-				console.log('IMAGES LOADED!')
 				var msnry = new Masonry($('.posts-container')[0], {
 					// options
 					columnWidth: 0,
@@ -175,6 +180,16 @@ var DashboardView = Parse.View.extend({
 				});
 
 				$('.posts-container').addClass('visible');
+
+				$(".triangle").mouseenter(function(){
+					var i = $('.triangle').index(this);
+					$(".wind-right:eq("+i+")").css('opacity', 1);
+					$(".wind-time:eq("+i+")").css('opacity', 1);
+				}).mouseleave(function () {
+						var i = $('.triangle').index(this);
+						$(".wind-right:eq("+i+")").css('opacity', 0);
+						$(".wind-time:eq("+i+")").css('opacity', 0);
+				})
 			})
 
 		});
@@ -185,8 +200,6 @@ var DashboardView = Parse.View.extend({
 			columnWidth: 0,
 			itemSelector: '.item'
 		});
-
-		console.log('fetchPromise is', this.fetchPromise)
 	},
 
 	render: function() {
@@ -196,7 +209,6 @@ var DashboardView = Parse.View.extend({
 	},
 
 	addPost: function(photo) {
-		console.log('photo is', photo)
 		new PostsView({
 			model: photo
 		});
@@ -205,10 +217,11 @@ var DashboardView = Parse.View.extend({
 	logOut: function() {
 
 		Parse.User.logOut();
-		console.log('Logged out Succesfully!')
 		var currentUser = Parse.User.current();
 
-		router.navigate('#/login')
+		router.navigate('#/login', {
+			trigger: true	
+		})
 
 	},
 
@@ -235,6 +248,7 @@ var DashboardView = Parse.View.extend({
 			console.log("Upload Failed")
 		});
 
+    var that = this;
 		uploadPromise.done(function() {
 
 			var uploadPhoto = new Parse.Object("UploadPhoto");
@@ -248,21 +262,14 @@ var DashboardView = Parse.View.extend({
 			uploadPhoto.set("caption", $('.caption').val());
 
 			if ($('.current-location').is(':checked')) {
-				console.log("checked")
 				var pointPromise = Parse.GeoPoint.current()
-				console.log(pointPromise)
 				pointPromise.done(function(latlong) {
 
-					console.log('latlong', latlong)
-					console.log(latlong.latitude)
-					console.log(latlong.longitude)
-					
 					var point = new Parse.GeoPoint({
 						
 						latitude: latlong.latitude,
 						longitude: latlong.longitude
 					})
-					console.log(point)
 
 					uploadPhoto.set('location', point)
 					uploadPhoto.save().done(function() {
@@ -272,7 +279,6 @@ var DashboardView = Parse.View.extend({
 					})
 				})
 			} else {
-				console.log("un-checked")
 				uploadPhoto.save().done(function() {
 
 					Parse.User.current().relation('posts').add(uploadPhoto);
@@ -281,20 +287,13 @@ var DashboardView = Parse.View.extend({
 
 			}
 
-			app.collection.add(uploadPhoto)
-
-			// if you wanna fetch current user's posts later, it's
-			// Parse.User.current().relation('posts').query().find().done(function(postsList){
-			//    do cool stuff here 
-			// });
-			console.log("Upload Successful")
+			that.collection.add(uploadPhoto)
 
 		})
 
 	},
 
 	forecastName: function() {
-		console.log('running forecastName')
 
 		var that = this;
 
@@ -320,21 +319,26 @@ var DashboardView = Parse.View.extend({
 					
 					var roundedWindSpeed = evenWindSpeed.map(Math.round);
 					
-					console.log(roundedWindSpeed);
+					var time = _.pluck(data, 'hour');
+					
+					var evenTimes = _.filter(time, function(num, index){ return index % 2 == 0; });
 
+					var windTimeArray = [];
 					roundedWindSpeed.forEach(function(speed){
-				var windSp = {
-					windSpeedMph: speed
-				}
+						 windTimeArray.push({
+								windSpeedMph: speed
+							})
+					})
+					evenTimes.forEach(function(time, index) {
+						windTimeArray[index].hour = time
+					})
 
-				var template = _.template($('.wind-speed-template').text());
-				var renderedTemplate = template(windSp)
-				$('.wind').append(renderedTemplate)
+					windTimeArray.forEach(function (data) {
+						var template = _.template($('.wind-speed-template').text());
+						var renderedTemplate = template(data)
+						$('.wind').append(renderedTemplate)
+					})
 
-			})
-
-			//
-				
 				var evenWindDegrees = _.filter(windDegrees, function(num, index){ return index % 2 == 0; });
 
 			evenWindDegrees.forEach(function(direction){
@@ -359,8 +363,6 @@ var DashboardView = Parse.View.extend({
 					}
 			});
 
-			// console.log('the current position', currentPosition.longitude + ' ' + currentPosition.latitude);
-
 		});
 
 		$.get('http://0.0.0.0:3000/api/county/swell/' + name).done(function(data) {
@@ -379,7 +381,9 @@ var DashboardView = Parse.View.extend({
 			
 			_.each(data, function(item) {
 				swellChartLabels.push(item.hour);
-				swellChartData.map(Math.round);
+				swellChartData = swellChartData.map(function(num){
+					return parseFloat(num.toFixed(2));
+				});
 				swellChartData.push(item.hst * 3);
 			
 			});
@@ -407,9 +411,9 @@ var DashboardView = Parse.View.extend({
 			var ctx = document.getElementById("wave-height-chart").getContext("2d");
 
 			ctx.canvas.width = 530;
-			ctx.canvas.height = 200;
-			// ctx.canvas.width = $("#wave-height-chart").width();
-			// ctx.canvas.height = $("#wave-height-chart").height();
+			ctx.canvas.height = 275;
+			ctx.canvas.width = $("#wave-height-chart").width();
+			ctx.canvas.height = $("#wave-height-chart").height();
 			that.myBarChart = new Chart(ctx).Bar(swellInfo, {
 				scaleShowGridLines: false,
 				showTooltips: true,
@@ -421,8 +425,8 @@ var DashboardView = Parse.View.extend({
 
 		$.get('http://0.0.0.0:3000/api/county/tide/' + name).done(function(data) {
 			var tidesArrayHour = _.pluck(data, 'hour');
+			
 			var tidesArrayHeight = _.pluck(data, 'tide');
-			console.log(tidesArrayHeight)
 
 			var evenTidesHour = _.filter(tidesArrayHour, function(num, index){ return index % 2 == 0; });
 
@@ -466,26 +470,24 @@ var DashboardView = Parse.View.extend({
 			});
 
 		})
-
+		this.googleMaps()
 	},
 
 	googleMaps: function() {
 
 		function initialize() {
 
-			var name = $('.search-region').val().replace(' ', '-').replace(',', '').toLowerCase();
+			var name = $('.search-region').val().replace(',', '').toLowerCase();
 
 				$.get('http://0.0.0.0:3000/api/spot/all').done(function(data) {
-					console.log('looking for', name);
-			_.each(data, function(item){
+			
+					_.each(data, function(item){
 
 					if ( item.county_name.replace ( '-' , ' ').toLowerCase() == name) {
 						currentPosition.longitude = item.longitude;
 						currentPosition.latitude =  item.latitude;
 					}
 			});
-
-			console.log('the current position', currentPosition.longitude + ' ' + currentPosition.latitude);
 
 			var mapOptions = {
 				center: new google.maps.LatLng(currentPosition.latitude, currentPosition.longitude),
@@ -496,15 +498,13 @@ var DashboardView = Parse.View.extend({
 			var map = new google.maps.Map(document.getElementById("map-canvas"),
 				mapOptions);
 
-			console.log('after map ', mapOptions);
-
 		});
 
 			var mapOptions = {
 				center: new google.maps.LatLng(currentPosition.latitude, currentPosition.longitude),
 				zoom: 1
 			};
-			console.log(mapOptions);
+
 			var map = new google.maps.Map(document.getElementById("map-canvas"),
 				mapOptions);
 
@@ -530,7 +530,6 @@ var PostsView = Parse.View.extend({
 	},
 
 	render: function() {
-		// console.log('PostsView this.model is', this.model)
 		renderTemplate = this.template(this.model.attributes);
 		this.$el.html(renderTemplate)
 		return this;

@@ -74,18 +74,18 @@
 
 <!--Sign Up View -->
 
-          <script type="text/template" class="sign-up-view-template">
-            <div class="login-sign-up-container">
-                <a class="logo" href="#"></a>
-                <p>Username</p>
-                <input type="text" placeholder="bobbuickbuck" class="sign-up-username">
-                <p>Create a Password</p>
-                <input type="password" placeholder="puppies13" class="sign-up-password">
-                <p>Your Email Address</p>
-                <input type="email" placeholder="you@example.com" class="sign-up-email">
-                <button class="submit-sign-up-button">Sign Up</button>
-                <a href="#/login">Already have an account?</a>
-            </div>
+        <script type="text/template" class="sign-up-view-template">
+          <div class="login-sign-up-container">
+              <a class="logo" href="#"></a>
+              <p>Username</p>
+              <input type="text" placeholder="bobbuickbuck" class="sign-up-username">
+              <p>Create a Password</p>
+              <input type="password" placeholder="puppies13" class="sign-up-password">
+              <p>Your Email Address</p>
+              <input type="email" placeholder="you@example.com" class="sign-up-email">
+              <button class="submit-sign-up-button">Sign Up</button>
+              <a href="#/login">Already have an account?</a>
+          </div>
         </script>
 
         <script type="text/template" class="dashboard-view-template">
@@ -105,8 +105,8 @@
                 <div class="search-row">
                   <div class="search-box">
                       <h2>Search</h2>
-                      <input type="text" value="Monterey" autofocus class="search-region">
-                      <button class="search">Check it</button>
+                      <input type="text" value="Monterey" autofocus class="search search-region">
+                     <!-- <button class="search">Check it</button> -->
                   </div>
   
                 <div class="slide">
@@ -166,7 +166,7 @@
               <option>50+</option>
             </select> 
 
-            <textarea class="caption" placeholder="Such tubes much surf..."></textarea>
+            <!-- <textarea class="caption" placeholder="Such tubes much surf..."></textarea> -->
 
             <button class="upload-button">Post</button>
 
@@ -214,6 +214,9 @@
         <script type="text/template" class="wind-speed-template">
             <div class="wind-right">
               <div class="wind-speed"> <%= windSpeedMph %> MPH </div>
+            </div>
+            <div class="wind-time">
+              <div class="wind-hour"> <%= hour %></div>
             </div>
         </script>
 
