@@ -165,7 +165,7 @@ var DashboardView = Parse.View.extend({
 
 		$('.search-region').keydown(function (key) {
 			if(key.which === 13) {
-				$('.search').click();
+				// $('.search').click();
 			}
 		})
 
@@ -411,15 +411,9 @@ var DashboardView = Parse.View.extend({
 			var ctx = document.getElementById("wave-height-chart").getContext("2d");
 
 			ctx.canvas.width = 530;
-<<<<<<< HEAD
-			ctx.canvas.height = 320;
-			// ctx.canvas.width = $("#wave-height-chart").width();
-			// ctx.canvas.height = $("#wave-height-chart").height();
-=======
 			ctx.canvas.height = 275;
 			ctx.canvas.width = $("#wave-height-chart").width();
 			ctx.canvas.height = $("#wave-height-chart").height();
->>>>>>> final-countdown
 			that.myBarChart = new Chart(ctx).Bar(swellInfo, {
 				scaleShowGridLines: false,
 				showTooltips: true,
@@ -428,7 +422,6 @@ var DashboardView = Parse.View.extend({
 				showScale: false
 			});
 		});
-
 
 		$.get('http://0.0.0.0:3000/api/county/tide/' + name).done(function(data) {
 			var tidesArrayHour = _.pluck(data, 'hour');
