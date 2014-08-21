@@ -165,7 +165,7 @@ var DashboardView = Parse.View.extend({
 
 		$('.search-region').keydown(function (key) {
 			if(key.which === 13) {
-				// $('.search').click();
+				$('.search').click();
 			}
 		})
 
