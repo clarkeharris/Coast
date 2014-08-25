@@ -300,7 +300,7 @@ var DashboardView = Parse.View.extend({
 		var surfSpot = new SpotsCollection();
 		var name = $('.search-region').val().replace(' ', '-').replace(',', '').toLowerCase();
 
-		$.get('http://0.0.0.0:3000/api/county/water-temperature/' + name).done(function(tempData) {
+		$.get('http://clarkes-proxy.herokuapp.com/api/county/water-temperature/' + name).done(function(tempData) {
 			$('.forecast-location').html('')
 			$('.forecast-location').append(tempData.county)
 			
@@ -308,7 +308,7 @@ var DashboardView = Parse.View.extend({
 			$('.water-temp').append('Water Temperature:' + ' ' + tempData.fahrenheit)
 		});
 
-		$.get('http://0.0.0.0:3000/api/county/wind/' + name).done(function(data) {
+		$.get('http://clarkes-proxy.herokuapp.com/api/county/wind/' + name).done(function(data) {
 			
 			var windDegrees = _.pluck(data, 'direction_degrees')
 
@@ -353,7 +353,7 @@ var DashboardView = Parse.View.extend({
 			})
 		});
 
-		$.get('http://0.0.0.0:3000/api/spot/all').done(function(data) {
+		$.get('http://clarkes-proxy.herokuapp.com/api/spot/all').done(function(data) {
 
 			_.each(data, function(item){
 
@@ -365,7 +365,7 @@ var DashboardView = Parse.View.extend({
 
 		});
 
-		$.get('http://0.0.0.0:3000/api/county/swell/' + name).done(function(data) {
+		$.get('http://clarkes-proxy.herokuapp.com/api/county/swell/' + name).done(function(data) {
 			
 			_.each(data, function(item) {
 
@@ -375,7 +375,7 @@ var DashboardView = Parse.View.extend({
 			});
 		});
 
-		$.get('http://0.0.0.0:3000/api/county/swell/' + name).done(function(data) {
+		$.get('http://clarkes-proxy.herokuapp.com/api/county/swell/' + name).done(function(data) {
 			var swellChartLabels = [];
 			var swellChartData = [];
 			
@@ -423,7 +423,7 @@ var DashboardView = Parse.View.extend({
 			});
 		});
 
-		$.get('http://0.0.0.0:3000/api/county/tide/' + name).done(function(data) {
+		$.get('http://clarkes-proxy.herokuapp.com/api/county/tide/' + name).done(function(data) {
 			var tidesArrayHour = _.pluck(data, 'hour');
 			
 			var tidesArrayHeight = _.pluck(data, 'tide');
@@ -479,7 +479,7 @@ var DashboardView = Parse.View.extend({
 
 			var name = $('.search-region').val().replace(',', '').toLowerCase();
 
-				$.get('http://0.0.0.0:3000/api/spot/all').done(function(data) {
+				$.get('http://clarkes-proxy.herokuapp.com/api/spot/all').done(function(data) {
 			
 					_.each(data, function(item){
 
