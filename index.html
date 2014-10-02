@@ -1,164 +1,90 @@
-<!DOCTYPE html><html class=no-js><head><meta charset=utf-8><title>coast</title><meta name=description content=""><meta name=viewport content="width=device-width"><link rel="shortcut icon" href=/ae76fe45.favicon.ico><!-- Place favicon.ico and apple-touch-icon.png in the root directory --><link rel=stylesheet href=styles/3a87aeb2.main.css><script src=scripts/vendor/fbe20327.modernizr.js></script><link href="http://fonts.googleapis.com/css?family=Karla:400,400italic,700,700italic" rel=stylesheet type=text/css><script type=text/javascript src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCdiETrruDLX8J-FswzibWCPe58h204_VA"></script><script type=text/javascript src=http://masonry.desandro.com/masonry.pkgd.min.js></script><body><!--[if lt IE 10]>
+<!DOCTYPE html><html class=no-js><head><meta charset=utf-8><title>coast</title><meta name=description content=""><meta name=viewport content="width=device-width"><link rel="shortcut icon" href=/ae76fe45.favicon.ico><!-- Place favicon.ico and apple-touch-icon.png in the root directory --><link rel=stylesheet href=styles/9533fdde.main.css><script src=scripts/vendor/fbe20327.modernizr.js></script><link href="http://fonts.googleapis.com/css?family=Karla:400,400italic,700,700italic" rel=stylesheet type=text/css><script type=text/javascript src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCdiETrruDLX8J-FswzibWCPe58h204_VA"></script><body><!--[if lt IE 10]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]--><div class=container></div><!--             <img class="map-container" src="images/15f6193f.ajax-loader.gif">
- --><div class=posts-container></div><!-- Homepage View --><script type=text/template class=home-view-template><nav>
-              <div class="logo"></div>
+        <![endif]--><div class=wrapper></div><!--             <img class="map-container" src="images/15f6193f.ajax-loader.gif">
+ --><script type=text/template class=home-view-template><header>
 
-              <button class="direct-to-login-button">Login</button>
-              
-            </nav>
+          <div class="logo"></div>              
+             
+              <input type="text" value="Monterey" autofocus class="search-region">
+              <p class="help-reveal"> To view forecasts throughout Northern and 
+Southern California enter search below.</p>
+              <button class="search-button">Check Forecast</button>
 
-            <div class="header-home">
-
-            <h1>Surf Reports</h1>
-            <h3>From our buoys and your boys</h3>
-            <button class="sign-up-button">Sign Up</button>
-            <div class="down-pointer"></div>
-            <div class="welcome-filler"></div></script><!-- Login View --><script type=text/template class=login-view-template><div class="login-sign-up-container">
-                <a class="logo" href="#"></a>
-                <input type="text" placeholder="Username" autofocus class="login-username">
-                <input type="password" placeholder="Password" class="login-password">
-                <button class="login-button">Login</button>
-                <a href="#">Forgot your password?</a>
-            </div></script><!--Sign Up View --><script type=text/template class=sign-up-view-template><div class="login-sign-up-container">
-              <a class="logo" href="#"></a>
-              <p>Username</p>
-              <input type="text" placeholder="bobbuickbuck" class="sign-up-username">
-              <p>Create a Password</p>
-              <input type="password" placeholder="puppies13" class="sign-up-password">
-              <p>Your Email Address</p>
-              <input type="email" placeholder="you@example.com" class="sign-up-email">
-              <button class="submit-sign-up-button">Sign Up</button>
-              <a href="#/login">Already have an account?</a>
-          </div></script><script type=text/template class=dashboard-view-template><nav>
-            <div class="logo"></div>
-
-              <div class="logout-button"></div>
-              <p class="welcome-username"> <%= Parse.User.current().attributes.username %> </p> 
-          </nav>
-          <div class="header">
-            <div class="header-overlay"></div>
-                
-                <p class="date"></p>
-                <h1 class="forecast-location"></h1>
-                <p class="water-temp"></p>
-
-                <div class="search-row">
-                  <div class="search-box">
-                      <h2>Search</h2>
-                      <input type="text" value="Monterey" autofocus class="search search-region">
-                     <!-- <button class="search">Check it</button> -->
-                  </div>
-  
-                <div class="slide">
-                  
-                  <button class="upload-feature">
-                  U<br>p<br>l<br>o<br>a<br>d
-                  </button>
-  
-                  <div class="inner" style="left: -695px;">
-
-
-            <input type='file' class="file-uploader" name="whatever"/>
-
-            <input type='text' class="location-entry" placeholder="Enter Zip Code"/>
             
-            <input type='checkbox' class="current-location"/><span class="current-location-about"> Use current location</span>
-            
+        </header>
 
-            <select class="wave-height-selection">
-              <option value="" disabled selected>Wave Height</option>
-              <option>flat</option>
-              <option>1-2 ft</option>
-              <option>2-4 ft</option>
-              <option>4-6 ft</option>
-              <option>6-8 ft</option>
-              <option>8-10 ft</option>
-              <option>8-12 ft</option>
-            </select>
+          <!-- End Header -->
 
-            <select class="wind-direction-selection">
-              <option value="" disabled selected>Wind Direction</option>
-              <option>N</option>
-              <option>NE</option>
-              <option>NW</option>
-              <option>W</option>
-              <option>E</option>
-              <option>S</option>
-              <option>SE</option>
-              <option>SW</option>
-            </select> 
-
-             <select class="tides-selection">
-             <option value="" disabled selected>Tide</option>
-              <option>High</option>
-              <option>High-Mid</option>
-              <option>Mid</option>
-              <option>Low Mid</option>
-              <option>Low</option>
-            </select>
-
-            <select class="crowd-selection">
-            <option value="" disabled selected>Crowd</option>
-              <option>Empty</option>
-              <option>5+</option>
-              <option>15+</option>
-              <option>30+</option>
-              <option>50+</option>
-            </select> 
-
-            <!-- <textarea class="caption" placeholder="Such tubes much surf..."></textarea> -->
-
-            <button class="upload-button">Post</button>
-
-
-                  </div>
-                </div>
-
-          </div>
-      </div>
-      <div id="container" >
-
-        <div class="wave-height item">
-          <h3>Wave Height</h3>
-          <canvas id="wave-height-chart"></canvas>
-        </div>
-
-        <div class="wind item">
-          <h3>Wind</h3>
-          <div class="wind-speed"></div>
-        </div>
-
-        <div class="tides item">
-          <h3>Tides</h3>
-          <canvas id="tide-chart" width="725px" height="65px"></canvas>
-        </div>
-
-        <div id="map-canvas"></div>
-
-        <div class="local-reports item">
-          <h3>Local Reports</h3>
-        </div>
-
-      </div></script><!-- <img src="../images/fefd0529.n-pointer.svg" style="-webkit-transform: rotate(<%=windDirection%>deg);"> --><script type=text/template class=arrow-template><div class="wind-left">
-            <div class="triangle" style="-webkit-transform: rotate(<%=windDirection%>deg);"></div>
-          </div></script><script type=text/template class=wind-speed-template><div class="wind-right">
-              <div class="wind-speed"> <%= windSpeedMph %> MPH </div>
+            <div class="water-temp-container">
+              <p class="forecast-description ">Water Temperature</p>
+              <span class="water-temp-f"></span>
+              <div class="temp-divider"></div>
+              <span class="water-temp-c"></span>
             </div>
-            <div class="wind-time">
-              <div class="wind-hour"> <%= hour %></div>
-            </div></script><!-- Posts View  --><script type=text/template class=posts-view-template><div class="user-posts">
-              <img src="<%= photoRef.url() %>">
-              <div class="post-info">
-                <p class="post-username"> <%= parent %> </p>
-                <p class="post-wave-height">Wave Height: <%= wave_height %> </p>
-                <p class="post-wind-direction">Wind Direction: <%= wind_direction %> </p>
-                <p class="post-tide">Tide: <%= tide %> </p>
-                <p class="post-crowd">Crowd: <%= crowd %> </p>
+
+            <div class="waves-container">
+              <p class="forecast-description ">Wave Height</p>
+                <canvas id="wave-height-chart"></canvas>
+            </div>
+
+            <div class="wind-container">
+              <p class="forecast-description ">Wind</p>
+              <div class="wind-compass">
+                <div class="wind-pointer"></div>
               </div>
-            </div></script><script src=scripts/d3aa0cee.vendor.js></script><script src=//www.parsecdn.com/js/parse-1.2.18.min.js></script><!-- Google Analytics: change UA-XXXXX-X to be your site's ID. --><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+              <div class="wind-data"></div>
+
+            </div>
+
+            <div class="tides-container">
+              <p class="forecast-description">Tides</p>
+                <canvas id="tide-chart"></canvas>
+            </div>
+
+            <div class="map-container">
+            
+              <div id="map-canvas"></div>
+
+            </div>
+
+            <div class="go-surf-container">
+
+              <div class="go-surf-frame">
+            
+              <div class="go-top">GO</div>
+
+              <div class="s-surf">S</div>
+              <div class="u-surf">U</div>
+              <div class="r-surf">R</div>
+              <div class="f-surf">F</div>
+
+              <div class="go-bottom">GO</div>
+
+              </div>
+
+            </div>
+
+            <footer>
+            <div class="nest">
+              <div class="aside-one">
+                <h4>API:</h4>
+                <a href="http://www.spitcast.com/api/docs/">Spitcast</a>
+              </div>
+
+              <div class="aside-two">
+                <h4>Header Image</h4>
+                <a href="http://shanemarcelmiller.tumblr.com/">My Pal Shane Miller</a>
+              </div>
+
+              <div class="aside-three">
+                <h4>A WIP by  <a href="http://clarkeharris.com">Clarke Harris</a></h4>
+              </div>
+
+            </div>
+
+            </footer></script><script src=scripts/d17974d4.vendor.js></script><script src=//www.parsecdn.com/js/parse-1.2.18.min.js></script><!-- Google Analytics: change UA-XXXXX-X to be your site's ID. --><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
             function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
             e=o.createElement(i);r=o.getElementsByTagName(i)[0];
             e.src='//www.google-analytics.com/analytics.js';
             r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-            ga('create','UA-XXXXX-X');ga('send','pageview');</script><script src=scripts/dd597054.main.js></script>
+            ga('create','UA-XXXXX-X');ga('send','pageview');</script><script src=scripts/dda07f0d.main.js></script>
